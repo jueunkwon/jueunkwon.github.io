@@ -80,7 +80,7 @@
                             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
                                 <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
                             </div>
-                            <img class="img-fluid" src="assets/img/portfolio/cake.png" alt="..." />
+                            <img class="img-fluid" src="assets/img/lab2/bluetooth.png" alt="..." />
                         </div>
                         <h5 class="text-center">Lab 2: Bluetooth Communication</h5>
                     </div>
@@ -401,27 +401,119 @@
             <div class="modal-dialog modal-xl">
                 <div class="modal-content">
                     <div class="modal-header border-0"><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button></div>
-                    <div class="modal-body text-center pb-5">
+                    <div class="modal-body text-left pb-5">
                         <div class="container">
                             <div class="row justify-content-center">
                                 <div class="col-lg-8">
                                     <!-- Portfolio Modal - Title-->
-                                    <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">Tasty Cake</h2>
+                                    <!-- things that were already here <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">Lab 1: The Artemis board</h2>-->
+                                    <h2 class="text-center">LAB 2<h3 class="text-warning text-center">Bluetooth</h3></h2>
                                     <!-- Icon Divider-->
                                     <div class="divider-custom">
                                         <div class="divider-custom-line"></div>
                                         <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
                                         <div class="divider-custom-line"></div>
                                     </div>
-                                    <!-- Portfolio Modal - Image-->
-                                    <img class="img-fluid rounded mb-5" src="assets/img/portfolio/cake.png" alt="..." />
+                                    <!-- Portfolio Modal - Image
+                                    <img class="img-fluid rounded mb-5" src="assets/img/portfolio/cabin.png" alt="..." />-->
                                     <!-- Portfolio Modal - Text-->
-                                    <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
-                                    <button class="btn btn-primary" data-bs-dismiss="modal">
-                                        <i class="fas fa-xmark fa-fw"></i>
-                                        Close Window
-                                    </button>
-                                </div>
+                                    <h3 class="text-center">Goal</h3>
+                                    <p class="mb-4">The goal of this lab is to establish bluetooth communication and transfer data between the computer and the arthemis board.</p>
+                                    
+                                    <h3 class="text-center">Prelab</h3>
+                                    <h5>Setup:</h5>
+                                    <p class="mb-4">I learned about the basics of a BLE through this <a href="https://www.arduino.cc/reference/en/libraries/arduinoble/">link</a>.
+                                        I installed python3, pip, jupyter, and set up the "FastRobots_ble" virtual environment. Then, I checked to make sure I downloaded a Python >= 3.9 and pip >= 21.</p>
+                                    <img class="img-fluid rounded mb-5" src="assets/img/lab2/python.PNG" alt="...">
+
+                                    <p class="mb-4"> I installed and burned the sketch ble_arduino.ino from the <a href="https://cornell.app.box.com/s/aivj9ad3uv74lmpvxz8s64aamgz6azt1">codebase</a>. From this, I was able to identity my MAC address.</p>
+                                    <img class="img-fluid rounded mb-5" src="assets/img/lab2/burn_artemis_codebase.PNG" alt="...">
+                                    
+
+                                    <h5>Codebase:</h5>
+                                    <p class="mb-4">The codebase includes all the necessary files to let my computer communicate with the artemis board via bluetooth.
+                                        The codebase can be viewed mainly in two parts: ble_arduino and ble_python. ble_arduino includes set up code and arduino code that will run on the artemis board. 
+                                        ble_python includes all set up code and jupyter notebook to run all the commands. 
+                                    </p>
+                                    
+                                    <p class="mb-4">ArdunioBLE uses Bluetooth LE radio that works like a bulletin board, shared between the computer and the arthemis board. 
+                                        If the arthemis posts data on the bulletin board, my computer can read the data posted on the bulletin board. 
+                                    </p>
+                                    
+
+                                    <h3 class="text-center">Lab Tasks</h3>
+                                    <!--<p class="mb-4">the procedure of this lab</p>-->
+                                    <h5>Configurations:</h5>
+                                    <p class="mb-4"><b>Starting Bluetooth:</b><br>
+                                        Because I couldn't get my artemis to connect via my original bluetooth module on my laptop, I used the plugable usb and enabled the additional bluetooth module via WSL.</p>
+                                        
+                                    <p class="mb-4">I run the following commands everytime I restart bluetooth and open my jupyter lab:</p>
+                                        
+                                    <script src="https://gist.github.com/jueunkwon/9a86bbeec9964dafcaa479c89eb1eca7.js"></script>
+
+                                    <img class="img-fluid rounded mb-5"  src="assets/img/lab2/bluetooth_start.PNG" alt="...">
+
+
+                                    <p class="mb-4">In connections.yaml, I replaced the artemis_address value to match the MAC address given by my Artemis (shown in the pre section).
+                                        In addition, I generated a new BLEService UUID from the juypter lab and updated connections.yaml and ble_aruino.ino to match this address.
+                                    </p>
+
+                                    <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab2/uuid_total.PNG" alt="...">
+
+                                    <p class="mb-4"><b>demo.ipynb:</b><br>
+                                        I checked that everything in the demo.ipynb file is working as intended. A runthrough of my demo is shown below:
+                                    </p>
+
+                                    <div class="embed-container">
+                                        <iframe width="560" height="315" src="https://www.youtube.com/embed/YcQBnmmLaJQ" frameborder="0" allowfullscreen></iframe>
+                                    </div>
+                                    <br>
+
+                                    <h5>Send Echo Command:</h5>
+                                    <p class="mb-4">Echo command sends a string from the computer to the artemis board. Then, the computer receives a string from the artemis board.</p>>
+                                    <script src="https://gist.github.com/jueunkwon/33483a1fa8d4f76043d1cae5b6dde0bf.js"></script>
+                                    <img class="img-fluid rounded mb-5" src="assets/img/lab2/echo.PNG" alt="...">
+                                    
+                                    <h5>Get Time Command:</h5>
+                                    <p class="mb-4">GET_TIME_MILLIS command was added to get the time from the artemis board.</p>
+                                    <script src="https://gist.github.com/jueunkwon/484da0c2a25f22c2058efd95813b0b1c.js"></script>
+                                    <img class="img-fluid rounded mb-5" src="assets/img/lab2/get_time.PNG" alt="...">
+
+                                    <h5>Notification Handler:</h5>
+                                    <p class="mb-4">A notification handler was created to recieve string data from the artemis board and return the time.</p>
+                                    <img class="img-fluid rounded mb-5" src="assets/img/lab2/receive_string.PNG" alt="...">
+                                    
+                                    <h5>Get Temperature Command:</h5>
+                                    <p class="mb-4">GET_TEMP_5s command was added to get five timestamped internal die temperature reading from the artemis board. The temperature reading was taken once every second for five seconds.</p>
+                                    <script src="https://gist.github.com/jueunkwon/3d0e72c0bdc88fb40510c377310b40b2.js"></script>
+                                    <img class="img-fluid rounded mb-5" src="assets/img/lab2/get_temp.PNG" alt="...">
+
+                                    
+                                    <h5>Get Temperature Rapid Command:</h5>
+                                    <p class="mb-4">GET_TEMP_5s command was added to get as many temperature data as possible in 5 seconds. A notification handler was used to manage data.</p>
+                                    <script src="https://gist.github.com/jueunkwon/b8e38b9a2331d6170c8cf582184a0a49.js"></script>
+                                    <img class="img-fluid rounded mb-5" src="assets/img/lab2/get_temp_rapid.PNG" alt="...">
+                                    
+                                    <h5>Limitations:</h5>
+                                    <p class="mb-4">Working with strings introduces a huge latency, so it is better to transer data in chunks.
+                                        The artemis board has 385 kB of RAM. There are 8 bits in a byte and 1000 bytes in 1 kB. 
+                                        So, artemis board has 385 x 1000 x 8 = 3080000 bits of RAM. <br>
+                                        <br>
+                                        If we were to take 16 bit values at 150 Hz, that means we are taking 150 samples per second of the 16 bit data.
+                                        (150 samples/seconds) x (16 bit) = 2400 bit per second. 
+                                        That means, we can theortically send 3080000/2400 = 1283.3 seconds of 16 bit values taken at 150Hz.
+                                        Since this is the theortical value, our limit would be less than 1283.3 seconds of 16 bit values taken at 150Hz.
+                                    </p>
+
+
+                                    <p class="mb-4"></p>
+
+                                    <div class="text-center">
+                                        <button class="btn btn-primary" data-bs-dismiss="modal">
+                                            <i class="fas fa-xmark fa-fw"></i>
+                                            Close Window
+                                        </button>
+                                    </div>
                             </div>
                         </div>
                     </div>
