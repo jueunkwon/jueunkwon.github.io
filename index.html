@@ -730,10 +730,19 @@
                                     </div>
                                     
                                     <h5>Sample Data</h5>
-                                    <p class="mb-4">Speed of sampling discussion
+                                    <p class="mb-4"> Similar to Lab 3, I don't the wait for the IMU data to be ready. Instead, I check if data is ready in every iteration of the main loop and store that value.
+                                        I removed any delays and Serial.print statements in my ardunio code to reduce delays. 
+                                        Below is my stored time-stamped IMU data in 3 arrays: time, pitch, and roll.
+                                        By looking at the increments in the time stamp, I oberserved that I am able to sample data about every two milliseconds.
+                                    </p>
+                                    <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab4/imu_fast.PNG" alt="...">
+
+                                    <p class="mb-4">
+                                        Speed of sampling discussion
                                         Demonstrate collected and stored time-stamped IMU data in arrays
                                         Demonstrate 5s of ToF and IMU data sent over Bluetooth
                                     </p>
+
 
                                     <h5>Cut the Coord</h5>
                                     <p class="mb-4">There are two types of batteries: 3.7V 850mAh and 3.7V 650mAh. I chose to use the 3.7V 850mAh battery to power the motors and the 3.7V 650mAh battery to power the digital electronics.
