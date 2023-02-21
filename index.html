@@ -656,7 +656,7 @@
                                     </div>
 
                                     <h3 class="text-center">Goal</h3>
-                                    <p class="mb-4">TODO</p>
+                                    <p class="mb-4">The goal of this lab is to be able to use the IMU sensor on the robot and start running the artemis from a battery.</p>
                                     
                                     <h3 class="text-center">Prelab</h3>
                                     <p class="mb-4">The IMU I used in this lab is the <a href="https://www.sparkfun.com/products/15335">SparkFun 9DoF IMU Breakout - ICM-20948 (Qwiic)</a> board.
@@ -683,38 +683,57 @@
                                     </p>
                                     <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab4/acceleration_and_gyroscope.PNG" alt="...">
 
-                                    
                                     <h5>Accelerometer</h5>
-                                    <p class="mb-4">I used the following equations to determine the pitch and roll from the accelerometer data:<br>
-                                        ax = 1g sin θ<br>
-                                        az = 1g cos θ<br>
-                                        ax/az = tan θ<br>
-                                        θ = atan2(ax / az)<br>
-                                        𝜙 = atan2(ay / az)<br>
-                                    </p>
-                                    <p class="mb-4">Based on these equations, I converted the accelerometer data from the IMU into pitch and roll.</p>
+                                    <p class="mb-4">Based on the equations from class, I converted the accelerometer data from the IMU into pitch and roll.</p>
                                     <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab4/pitch_roll.PNG" alt="...">
                                     
-                                    <p class="mb-4">I used the surface of the table as a guide to check my pitcha and roll output when I rotate my IMU 0 degrees and 90 degrees.
+                                    <p class="mb-4">I used the surface of the table as a guide to check my pitcha and roll output when I rotate my IMU -90, 0 and 90 degrees.
                                         By doing so, I observed that the accelerometer seems pretty accurate with uncertainty of 4 degrees in pitch and roll.
                                     </p>
-                                    <nobr><img class="img-fluid rounded mb-5" width="400" src="assets/img/lab4/imu_0.PNG" alt="...">
-                                    <img class="img-fluid rounded mb-5" width="400" src="assets/img/lab4/imu_90.PNG" alt="..."></nobr>
+                                    <div class="embed-container">
+                                        <iframe width="560" height="315" src="https://www.youtube.com/embed/XlLmQ3tCu3s" frameborder="0" allowfullscreen></iframe>
+                                    </div>
 
-                                    <p class="mb-4">The accelerometer is noisy, especially when you run the RC car in its proximity. 
-                                        Record some of this data, and analyze the noise in the frequency spectrum.
+                                    <p class="mb-4">I recorded my accelerometer data to analyze the noise in the frequency spectrum.
+                                        I followed the guidelines from <a href="https://www.alphabold.com/fourier-transform-in-python-vibration-analysis/">here</a> to do a Fourier Transform in Python.
+                                        Below are my graphs for time vs pitch, time vs roll, frequency domain signal for pitch, and frequency domain signal for roll.
                                     </p>
 
-                                    <p class="mb-4">I followed the guidelines from <a href="https://www.alphabold.com/fourier-transform-in-python-vibration-analysis/">here</a> to do a Fourier Transform in Python.</p>
+                                    <nobr><img class="img-fluid rounded mb-5" width="350" src="assets/img/lab4/time_pitch_roll.PNG" alt="...">
+                                        <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab4/amplitude_frequency.PNG" alt="..."></nobr>
+
+                                    <p class="mb-4">As shown in the graphs above, there is very little noise. 
+                                        This may be because my chip's built-in low pass filter is activated by default.
+                                        Since the data is already low-pass filtered, I will not add an additional low pass filter.
+                                    </p>
                                     
-                                    <h5>Discussion and pictures of sensor data with chosen mode</h5>
-                                    <p class="mb-4"></p>
+                                    <h5>Gyroscope</h5>
+                                    <p class="mb-4">Based on the equations from class, I converted the gyroscope data into pitch, roll, and yaw angles.</p>
+                                    <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab4/pitch_roll_yaw.PNG" alt="...">
 
-                                    <h5>2 ToF sensors: Discussion and screenshot of sensors working in parallel</h5>
-                                    <p class="mb-4"></p>
+                                    <p class="mb-4"> 
+                                        Gyroscope's pitch, roll, and yaw angles seems like they drift more, but have lower noise, compared to accelerometer's pitch and roll. This is shown in video below.
+                                        In addition, I observed that increasing the samping frequency makes my accelerometer and gyroscope data match more similarly.
+                                        The video shows the gyroscope's pitch, roll, and yaw, as well as accelerometer's pitch and roll.
+                                    </p>
+                                    <div class="embed-container">
+                                        <iframe width="560" height="315" src="https://www.youtube.com/embed/CK3CFPIuCT0" frameborder="0" allowfullscreen></iframe>
+                                    </div>
 
-                                    <h5>Tof sensor speed: Discussion on speed and limiting factor; include code snippet of how you do this</h5>
-                                    <p class="mb-4"></p>
+                                    <p class="mb-4">I combined gyroscope's data and accelerometer's data to create a complimentary fliter.</p>
+                                    <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab4/complimentary_fliter.PNG" alt="...">
+
+                                    <p class="mb-4">The complimentary filtered pitch and roll data looks more both accurate and stable. 
+                                        In addition, it is more immune to drift and quick vibrations. The video shows the complimentary filtered pitch and roll data.</p>
+                                    <div class="embed-container">
+                                        <iframe width="560" height="315" src="https://www.youtube.com/embed/NXOS2kWuJNE" frameborder="0" allowfullscreen></iframe>
+                                    </div>
+                                    
+                                    <h5>Sample Data</h5>
+                                    <p class="mb-4">Speed of sampling discussion
+                                        Demonstrate collected and stored time-stamped IMU data in arrays
+                                        Demonstrate 5s of ToF and IMU data sent over Bluetooth
+                                    </p>
 
                                     <h5>Cut the Coord</h5>
                                     <p class="mb-4">There are two types of batteries: 3.7V 850mAh and 3.7V 650mAh. I chose to use the 3.7V 850mAh battery to power the motors and the 3.7V 650mAh battery to power the digital electronics.
@@ -722,7 +741,6 @@
                                         Below is a picture of my Artemis connected to the 650mAh battery:
                                     </p>
                                     <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab4/battery.jpg" alt="...">
-                                    
 
                                     <h5>Record a Stunt</h5>
                                     <p class="mb-4">Below is a video of me and playing with the car without Artemis MY OBSERVATIONS TODO
