@@ -737,12 +737,11 @@
                                     </p>
                                     <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab4/imu_fast.PNG" alt="...">
 
-                                    <p class="mb-4">
-                                        Speed of sampling discussion
-                                        Demonstrate collected and stored time-stamped IMU data in arrays
-                                        Demonstrate 5s of ToF and IMU data sent over Bluetooth
+                                    <p class="mb-4"> I integrated my code from lab 3 so that the Artemis captures both IMU data and ToF data.
+                                        I decided to divide up the array to check if my ICM data is ready and if my distance sensor data is ready separately so that I don't waste time waiting for both things to be ready.
+                                        I send my complimentary filtered pitch and roll data, which integrates my accelerometer and gyroscope data, and my distance sensor data, along with their corresponding time stamps, over bluetooth for 10 seconds.
                                     </p>
-
+                                    <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab4/ten_seconds.PNG" alt="...">
 
                                     <h5>Cut the Coord</h5>
                                     <p class="mb-4">There are two types of batteries: 3.7V 850mAh and 3.7V 650mAh. I chose to use the 3.7V 850mAh battery to power the motors and the 3.7V 650mAh battery to power the digital electronics.
@@ -759,6 +758,12 @@
                                     <p class="mb-4">Below is a video of me and playing with the car with Artemis MY OBSERVATIONS TODO
                                         plot data sent over Bluetooth
                                     </p>
+                                    <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab4/stunt_imu.PNG" alt="...">
+                                    <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab4/stunt_tof.PNG" alt="...">
+                                    <div class="embed-container">
+                                        <iframe width="560" height="315" src="https://www.youtube.com/embed/agCwsTs-xu4" frameborder="0" allowfullscreen></iframe>
+                                    </div>
+                                    
 
                                     <div class="text-center">
                                         <button class="btn btn-primary" data-bs-dismiss="modal">
