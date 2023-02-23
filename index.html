@@ -664,8 +664,164 @@
                                     
                                     <h3 class="text-center">Lab Tasks</h3>
                                     <!--<p class="mb-4">the procedure of this lab</p>-->
-                                    <h5>Set up the IMU</h5>
+                                    <h5>Set up the IMU:</h5>
                                     <p class="mb-4">The picture below shows my Artemis IMU connections. The IMU is connected to the Artemis board using the QWIIC connectors.</p>
+                                    <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab4/imu_connections.jpg" alt="...">
+                                    <p class="mb-4">I installed the SparkFun 9DOF IMU Breakout - ICM 20948 - Arduino Library. Then, I uploaded the code found from "File->Examples->SparkFun 9DoF IMU Breakout - ICM 20948 - Arduino library->Arduino->Example1_Basics" to check that the IMU example code works.</p>
+                                    <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab4/imu_example.PNG" alt="...">
+                                    <p class="mb-4">AD0_VAL is the value of the last bit of the I2C address.
+                                        By default, the bridge of the ADR on I2C board is not connected, and the corresponding default value on the SparkFun 9DoF IMU breakout is 1.
+                                        When the ADR jumper bridge is connected, the value becomes 0. 
+                                        Since I didn't connect any bridges, I set ADO_VAL to the default value of 1.
+                                    </p>
+                                    <p class="mb-4">In order to have a visual indication that my board is running, I added code to blink the LED on Arthemis at the end of the setup.</p>
+                                    <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab4/blink.PNG" alt="...">
+
+                                    <p class="mb-4">In the serial monitor, both acceleration and gyroscope data for x,y, and z was shown. 
+                                        I observed that the sensor values change as I rotate, flip, and accelerate the board. 
+                                        When I rotate the board, the gyroscope data changed. When I accelerated the board, I saw that the accerleration data changed.
+                                    </p>
+                                    <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab4/acceleration_and_gyroscope.PNG" alt="...">
+
+                                    <h5>Accelerometer:</h5>
+                                    <p class="mb-4">Based on the equations from class, I converted the accelerometer data from the IMU into pitch and roll.</p>
+                                    <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab4/pitch_roll.PNG" alt="...">
+                                    
+                                    <p class="mb-4">I used the surface of the table as a guide to check my pitcha and roll output when I rotate my IMU -90, 0 and 90 degrees.
+                                        By doing so, I observed that the accelerometer seems pretty accurate with uncertainty of 4 degrees in pitch and roll.
+                                    </p>
+                                    <div class="embed-container">
+                                        <iframe width="560" height="315" src="https://www.youtube.com/embed/XlLmQ3tCu3s" frameborder="0" allowfullscreen></iframe>
+                                    </div>
+
+                                    <p class="mb-4">I recorded my accelerometer data to analyze the noise in the frequency spectrum.
+                                        I followed the guidelines from <a href="https://www.alphabold.com/fourier-transform-in-python-vibration-analysis/">here</a> to do a Fourier Transform in Python.
+                                        Below are my graphs for time vs pitch, time vs roll, frequency domain signal for pitch, and frequency domain signal for roll.
+                                    </p>
+
+                                    <nobr><img class="img-fluid rounded mb-5" width="350" src="assets/img/lab4/time_pitch_roll.PNG" alt="...">
+                                        <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab4/amplitude_frequency.PNG" alt="..."></nobr>
+
+                                    <p class="mb-4">As shown in the graphs above, there is very little noise. 
+                                        This may be because my chip's built-in low pass filter is activated by default.
+                                        Since the data is already low-pass filtered, I will not add an additional low pass filter.
+                                    </p>
+                                    
+                                    <h5>Gyroscope:</h5>
+                                    <p class="mb-4">Based on the equations from class, I converted the gyroscope data into pitch, roll, and yaw angles.</p>
+                                    <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab4/pitch_roll_yaw.PNG" alt="...">
+
+                                    <p class="mb-4"> 
+                                        Gyroscope's pitch, roll, and yaw angles seems like they drift more, but have lower noise, compared to accelerometer's pitch and roll. This is shown in video below.
+                                        In addition, I observed that increasing the samping frequency makes my accelerometer and gyroscope data match more similarly.
+                                        The video shows the gyroscope's pitch, roll, and yaw, as well as accelerometer's pitch and roll.
+                                    </p>
+                                    <div class="embed-container">
+                                        <iframe width="560" height="315" src="https://www.youtube.com/embed/CK3CFPIuCT0" frameborder="0" allowfullscreen></iframe>
+                                    </div>
+
+                                    <p class="mb-4">I combined gyroscope's data and accelerometer's data to create a complimentary fliter.</p>
+                                    <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab4/complimentary_fliter.PNG" alt="...">
+
+                                    <p class="mb-4">The complimentary filtered pitch and roll data looks more both accurate and stable. 
+                                        In addition, it is more immune to drift and quick vibrations. The video shows the complimentary filtered pitch and roll data.</p>
+                                    <div class="embed-container">
+                                        <iframe width="560" height="315" src="https://www.youtube.com/embed/NXOS2kWuJNE" frameborder="0" allowfullscreen></iframe>
+                                    </div>
+                                    
+                                    <h5>Sample Data:</h5>
+                                    <p class="mb-4"> Similar to Lab 3, I don't the wait for the IMU data to be ready. Instead, I check if data is ready in every iteration of the main loop and store that value.
+                                        I removed any delays and Serial.print statements in my ardunio code to reduce delays. 
+                                        Below is my stored time-stamped IMU data in 3 arrays: time, pitch, and roll.
+                                        By looking at the increments in the time stamp, I oberserved that I am able to sample data about every two milliseconds.
+                                    </p>
+                                    <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab4/imu_fast.PNG" alt="...">
+
+                                    <p class="mb-4"> I integrated my code from lab 3 so that the Artemis captures both IMU data and ToF data.
+                                        I decided to divide up the array to check if my ICM data is ready and if my distance sensor data is ready separately so that I don't waste time waiting for both things to be ready.
+                                        I send my complimentary filtered pitch and roll data, which integrates my accelerometer and gyroscope data, and my distance sensor data, along with their corresponding time stamps, over bluetooth for 10 seconds.
+                                    </p>
+                                    <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab4/ten_seconds.PNG" alt="...">
+
+                                    <h5>Cut the Coord:</h5>
+                                    <p class="mb-4">There are two types of batteries: 3.7V 850mAh and 3.7V 650mAh. I chose to use the 3.7V 850mAh battery to power the motors and the 3.7V 650mAh battery to power the digital electronics.
+                                        I chose to use the battery with more capacity to drive the motors because the motors will use up the battery more quickly.
+                                        Below is a picture of my Artemis connected to the 650mAh battery:
+                                    </p>
+                                    <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab4/battery.jpg" alt="...">
+
+                                    <h5>Record a Stunt:</h5>
+                                    <p class="mb-4">I mounted the 850mAh battery to the car. Then, I drove the car around with the controller to get a feel of how fast the car drives and turns. 
+                                        Below is a video of the car being driven without the artemis board. I tried to do flips and spins with the car. </p>
+                                    <div class="embed-container">
+                                        <iframe width="560" height="315" src="https://www.youtube.com/embed/O1lDVepohdw" frameborder="0" allowfullscreen></iframe>
+                                    </div>
+
+                                    <p class="mb-4">Below is a video of the car doing flips with the artemis board, the IMU, and the distance sensors.</p>
+                                    <div class="embed-container">
+                                        <iframe width="560" height="315" src="https://www.youtube.com/embed/agCwsTs-xu4" frameborder="0" allowfullscreen></iframe>
+                                    </div>
+                                    <p class="mb-4"> I recorded both the IMU data and ToF data over bluetooth for 10 seconds while doing flips shown in the video above. 
+                                        Below are my plots of the IMU data and the ToF data.
+                                    </p>
+                                    <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab4/stunt_imu.PNG" alt="...">
+                                    <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab4/stunt_tof.PNG" alt="...">
+                                    
+                                    <div class="text-center">
+                                        <button class="btn btn-primary" data-bs-dismiss="modal">
+                                            <i class="fas fa-xmark fa-fw"></i>
+                                            Close Window
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Portfolio Modal 5-->
+        <div class="portfolio-modal modal fade" id="portfolioModal5" tabindex="-1" aria-labelledby="portfolioModal5" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header border-0"><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button></div>
+                    <div class="modal-body text-center pb-5">
+                        <div class="container">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-8">
+                                    <!-- Portfolio Modal - Title-->
+                                    <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">Lab 5: Motors and Open Loop Control</h2>
+                                    <!-- Icon Divider-->
+                                    <div class="divider-custom">
+                                        <div class="divider-custom-line"></div>
+                                        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                                        <div class="divider-custom-line"></div>
+                                    </div>
+
+                                    <h3 class="text-center">Goal</h3>
+                                    <p class="mb-4">The goal of this lab is to ...</p>
+                                    
+                                    <h3 class="text-center">Prelab</h3>
+                                    <h5>Diagram with your intended connections between the motor drivers, Artemis, and battery (with specific pin numbers):</h5>
+                                    <p class="mb-4"></p>
+                                    <h5>Battery discussion:</h5>
+                                    <p class="mb-4"></p>
+
+                                    <h3 class="text-center">Lab Tasks</h3>
+                                    <!--<p class="mb-4">the procedure of this lab</p>-->
+                                    <h5>Picture of your setup with power supply and oscilloscope hookup</h5>
+                                    <h5>Power supply setting discussion</h5>
+                                    <h5>Include the code snippet for your analogWrite code that tests the motor drivers</h5>
+                                    <h5>Image of your oscilloscope</h5>
+                                    <h5>Short video of wheels spinning as expected (including code snippet it’s running on)</h5>
+                                    <h5>Short video of both wheels spinning (with battery driving the motor drivers)</h5>
+                                    <h5>Picture of all the components secured in the car</h5>
+                                    <p class="mb-4">Consider labeling your picture if you can’t see all the components</p>
+                                    <h5>Lower limit PWM value discussion</h5>
+                                    <h5>Calibration demonstration (discussion, video, code, pictures as needed)</h5>
+                                    <h5>Open loop code and video</h5>
+
+                                    <!--p class="mb-4">The picture below shows my Artemis IMU connections. The IMU is connected to the Artemis board using the QWIIC connectors.</p>
                                     <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab4/imu_connections.jpg" alt="...">
                                     <p class="mb-4">I installed the SparkFun 9DOF IMU Breakout - ICM 20948 - Arduino Library. Then, I uploaded the code found from "File->Examples->SparkFun 9DoF IMU Breakout - ICM 20948 - Arduino library->Arduino->Example1_Basics" to check that the IMU example code works.</p>
                                     <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab4/imu_example.PNG" alt="...">
@@ -765,7 +921,7 @@
                                         Below are my plots of the IMU data and the ToF data.
                                     </p>
                                     <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab4/stunt_imu.PNG" alt="...">
-                                    <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab4/stunt_tof.PNG" alt="...">
+                                    <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab4/stunt_tof.PNG" alt="..."!-->
                                     
 
                                     <div class="text-center">
@@ -774,38 +930,6 @@
                                             Close Window
                                         </button>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Portfolio Modal 5-->
-        <div class="portfolio-modal modal fade" id="portfolioModal5" tabindex="-1" aria-labelledby="portfolioModal5" aria-hidden="true">
-            <div class="modal-dialog modal-xl">
-                <div class="modal-content">
-                    <div class="modal-header border-0"><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button></div>
-                    <div class="modal-body text-center pb-5">
-                        <div class="container">
-                            <div class="row justify-content-center">
-                                <div class="col-lg-8">
-                                    <!-- Portfolio Modal - Title-->
-                                    <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">Locked Safe</h2>
-                                    <!-- Icon Divider-->
-                                    <div class="divider-custom">
-                                        <div class="divider-custom-line"></div>
-                                        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-                                        <div class="divider-custom-line"></div>
-                                    </div>
-                                    <!-- Portfolio Modal - Image-->
-                                    <img class="img-fluid rounded mb-5" src="assets/img/portfolio/safe.png" alt="..." />
-                                    <!-- Portfolio Modal - Text-->
-                                    <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
-                                    <button class="btn btn-primary" data-bs-dismiss="modal">
-                                        <i class="fas fa-xmark fa-fw"></i>
-                                        Close Window
-                                    </button>
                                 </div>
                             </div>
                         </div>
