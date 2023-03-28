@@ -1051,13 +1051,25 @@
 
                                     <h5>Initialize KF:</h5>
                                     <p class="mb-4">
-                                        In the realtively linear reigon of my data, I take got 22 sample in 1.517seconds. This is a sample rate of about 14.5Hz.</p>
+                                        In the realtively linear reigon of my data, I take got 22 sample in 1.517seconds. This is a sample rate of about 14.5Hz.
                                         I calculated my measurement noise, σ3, by taking a variance of my ToF data over tume when it is sitting still. σ3 came out to be around 108.8mm.
+                                    </p>
 
                                     <h5>Implement and test your Kalman Filter in Jupyter:</h5>
                                     <p class="mb-4">
-                                        
+                                        When I make the uncertainty for my modeled position and my molded speed low and my uncertainty for my measurement noise high, meaning I put more stress on the model and less on the sensor values, I am very off from the actual data points.
+                                        Below is my graph when sigma_1 = 38, sigma_2 = 38 and sigma_3 = 108.8.
                                     </p>
+                                    <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab7/kf_try1.PNG" alt="...">
+
+
+                                    <p class="mb-4">
+                                        When I make the uncertainty for my modeled position and my molded speed really high and my uncertainty for my measurement noise low, meaning I put more stress on the sensor values and less on the model, I get very close to the actual data points.
+                                        Below is my graph when sigma_1 = 100, sigma_2 = 100 and sigma_3 = 10.
+                                    </p>
+                                    <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab7/kf_good.PNG" alt="...">
+
+
 
                                     <h5>Extrapolation:</h5>
                                     <p class="mb-4"></p>
