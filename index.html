@@ -914,46 +914,82 @@
                                     </div>
 
                                     <h3 class="text-center">Goal</h3>
-                                    <p class="mb-4">The goal of this lab ...</p>
+                                    <p class="mb-4">The goal of this lab to use a proportional controller to drive my car as fast as possible towards a wall and stop exactly 1ft (304 mm) away from the wall.</p>
                                     
                                     <h3 class="text-center">Prelab</h3>
-                                    <p class="mb-4">
-                                        Clearly describe how you handle sending and receiving data over Bluetooth
-
-
-                                        Have the robot controller start on an input from your computer sent over Bluetooth
-
-                                        I made the robot start from an input from my computer sent over Bluetooth
-
+                                    <p class="mb-4"> I made the robot start from an input from my computer sent over Bluetooth.<br>
                                         Below is my structure for the command types.
-                                        <script src="https://gist.github.com/jueunkwon/8430573cef725517421ccdee3605153f.js"></script>
-
-                                        My robot can move forward, backward, turn right, turn left, and stop from a command sent from my computer via bluetooth. In addition, I can set the motor input from the computer.
-                                        <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab6/prelab.PNG" alt="...">
                                     </p>
+                                    <script src="https://gist.github.com/jueunkwon/8430573cef725517421ccdee3605153f.js"></script>
+
+                                    <p class="mb-4">My robot can move forward, backward, turn right, turn left, and stop from a command sent from my computer via bluetooth. In addition, I can specifically set the motor input value through the command.
+                                        For example, I can make my robot go forward with a motor input of 80 with the command below.</p>
+                                    <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab6/prelab.PNG" alt="...">
 
                                     <h3 class="text-center">Lab Tasks</h3>
                                     <!--<p class="mb-4">the procedure of this lab</p>-->
-                                    <h5>P/I/D discussion (Kp/Ki/Kd values chosen, why you chose a combination of controllers, etc.):</h5>
-                                    <p class="mb-4">In the interest of time and because my proportional controller was working great by itself, I decided to implement just the proportional controller.
-                                        Proportional controller is....
+                                    <h5>P/I/D discussion:</h5>
+                                    <p class="mb-4"> PID  control, which stands for proportional integral derivative control, utilizes a feedback loop to better control my car.
+                                        It can help with things such as maintaing speed prediction at different battery levels and at different surfaces.
+                                        Since the proportional control is the easiest to implement and in the interest of time, I decided to implement just the proportional controller.
+                                        Proportional controller uses the Kp term to proportionally calculated the speed of my car based on the error between my current position and my goal position, detected my by ToF sensors.
+                                        After I find the error and calcuate the new speed by doing Kp*error, I send store that information in an array. After I log all of my data, I sent it over bluetooth to my computer.
+                                        Below is my code snippet for proportional control and logging data.
                                     </p>
+                                    <script src="https://gist.github.com/jueunkwon/4a77abf920ad9fd7877da67907e5980a.js"></script>
+
+                                    <p class="mb-4">Since my robot's motor controller range to actually move the robot is 45 - 255, I made a separate helper function to set any motor input below 45 to 45 and above 255 to 255.
+                                        Below is my code snippet for speed limiting.
+                                    </p>
+                                    <script src="https://gist.github.com/jueunkwon/048685cecfd0c8cb2bbc002141bd8a3e.js"></script>
+
                                     <h5>Range/Sampling time discussion:</h5>
-                                    <p class="mb-4">Since my robot's motor controller range to actually move the robot is 50 - 255, my reasonable Kp value would be...</p>
+                                    <p class="mb-4">My actual range of motor input is 45-255 and the range of distance from my ToF sensor is 0-1350 mm. 
+                                        Based on this, my reasonable range of proportional controller gain will be between 0.01-0.1.
+                                        For my ToF sensor, I decided to change the sampling time. The default is 100ms but i want more data within the time span, so I changed it to 30ms using the function setIntermeasurementPeriod();.
+                                        
+                                    </p>
+
                                     <h5>Graphs, code, videos, images, discussion of reaching task goal:</h5>
                                     <p class="mb-4"></p>
-                                    <h5>A: Graph data should include Tof vs time and Motor input vs time (and whatever helps with debugging):</h5>
+                                    <h5>A: Graph data should include Tof vs time and Motor input vs time:</h5>
                                     <p class="mb-4"></p>
 
-
-                                    <p class="mb-4"></p>
-                                    
-                                    
+                                    <p class="mb-4">Kp = 0.2</p>
+                                    <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab6/Kp=0.2.png" alt="...">
                                     <div class="embed-container">
-                                        <iframe width="560" height="315" src="https://www.youtube.com/embed/KBhmlg7dIcI" frameborder="0" allowfullscreen></iframe>
+                                        <iframe width="560" height="315" src="https://www.youtube.com/embed/2N6nbiVDO1I" frameborder="0" allowfullscreen></iframe>
                                     </div>
-                                    <script src="https://gist.github.com/jueunkwon/321fba6cc8a28a83b6dc582076c8c650.js"></script>
-                                    
+
+                                    <p class="mb-4">Kp = 0.3</p>
+                                    <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab6/Kp=0.3.png" alt="...">
+                                    <div class="embed-container">
+                                        <iframe width="560" height="315" src="https://www.youtube.com/embed/-u42sIdgtAA" frameborder="0" allowfullscreen></iframe>
+                                    </div>
+
+                                    <p class="mb-4">Kp = 0.4</p>
+                                    <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab6/Kp=0.4.png" alt="...">
+                                    <div class="embed-container">
+                                        <iframe width="560" height="315" src="https://www.youtube.com/embed/78xgK1Ckc50" frameborder="0" allowfullscreen></iframe>
+                                    </div>
+
+                                    <p class="mb-4">Kp = 0.5</p>
+                                    <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab6/Kp=0.5.png" alt="...">
+                                    <div class="embed-container">
+                                        <iframe width="560" height="315" src="https://www.youtube.com/embed/8jF6jG94xUc" frameborder="0" allowfullscreen></iframe>
+                                    </div>
+
+                                    <p class="mb-4">Kp = 0.6</p>
+                                    <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab6/Kp=0.6.png" alt="...">
+                                    <div class="embed-container">
+                                        <iframe width="560" height="315" src="https://www.youtube.com/embed/rmpFLpLv5wA" frameborder="0" allowfullscreen></iframe>
+                                    </div>
+
+                                    <p class="mb-4">Combibed Kp</p>
+                                    <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab6/distance_combined.png" alt="...">
+                                    <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab6/speed_combined.png" alt="...">
+
+
 
                                     <div class="text-center">
                                         <button class="btn btn-primary" data-bs-dismiss="modal">
