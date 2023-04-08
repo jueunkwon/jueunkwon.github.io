@@ -917,14 +917,18 @@
                                     <p class="mb-4">The goal of this lab to use a proportional controller to drive my car as fast as possible towards a wall and stop exactly 1ft (304 mm) away from the wall.</p>
                                     
                                     <h3 class="text-center">Prelab</h3>
-                                    <p class="mb-4"> I made the robot start from an input from my computer sent over Bluetooth.<br>
+                                    <p class="mb-4"> For the prelab, I decided to set up a system so that my robot can start from an input from my computer, sent over Bluetooth.
                                         Below is my structure for the command types.
                                     </p>
                                     <script src="https://gist.github.com/jueunkwon/8430573cef725517421ccdee3605153f.js"></script>
 
-                                    <p class="mb-4">My robot can move forward, backward, turn right, turn left, and stop from a command sent from my computer via bluetooth. In addition, I can specifically set the motor input value through the command.
-                                        For example, I can make my robot go forward with a motor input of 80 with the command below.</p>
-                                    <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab6/prelab.PNG" alt="...">
+                                    <p class="mb-4">In addition, I made ardunio take in input values from the computer to set values such as the motor input or the Kp value to make testing easiler.
+                                        Below is my code snippet to handle different command types on ardunio.
+                                    </p>
+                                    <script src="https://gist.github.com/jueunkwon/911f0cf8c2709bbc27485c063022246b.js"></script>
+
+                                    <p class="mb-4">For example, I can make my robot go forward with a motor input of 80, from my computer, with the command below.</p>
+                                    <img class="img-fluid rounded mb-5" width="300" src="assets/img/lab6/prelab.PNG" alt="...">
 
                                     <h3 class="text-center">Lab Tasks</h3>
                                     <!--<p class="mb-4">the procedure of this lab</p>-->
@@ -933,62 +937,88 @@
                                         It can help with things such as maintaing speed prediction at different battery levels and at different surfaces.
                                         Since the proportional control is the easiest to implement and in the interest of time, I decided to implement just the proportional controller.
                                         Proportional controller uses the Kp term to proportionally calculated the speed of my car based on the error between my current position and my goal position, detected my by ToF sensors.
-                                        After I find the error and calcuate the new speed by doing Kp*error, I send store that information in an array. After I log all of my data, I sent it over bluetooth to my computer.
+                                        After I find the error and calcuate the new speed by multiplying Kp and the error, I store that information in an array. After I log all of my data, I send it over to my computer via bluetooth.
                                         Below is my code snippet for proportional control and logging data.
                                     </p>
                                     <script src="https://gist.github.com/jueunkwon/4a77abf920ad9fd7877da67907e5980a.js"></script>
 
-                                    <p class="mb-4">Since my robot's motor controller range to actually move the robot is 45 - 255, I made a separate helper function to set any motor input below 45 to 45 and above 255 to 255.
+                                    <p class="mb-4">Since my robot's motor controller range to actually move the robot is 45 - 255, I made a separate helper function to limit my motor input.
                                         Below is my code snippet for speed limiting.
                                     </p>
                                     <script src="https://gist.github.com/jueunkwon/048685cecfd0c8cb2bbc002141bd8a3e.js"></script>
 
+                                    <p class="mb-4"> Below is my code snippet for receive and handling data on jupyter.</p>
+                                    <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab6/receiving_data.PNG" alt="...">
+
                                     <h5>Range/Sampling time discussion:</h5>
                                     <p class="mb-4">My actual range of motor input is 45-255 and the range of distance from my ToF sensor is 0-1350 mm. 
-                                        Based on this, my reasonable range of proportional controller gain will be between 0.01-0.1.
-                                        For my ToF sensor, I decided to change the sampling time. The default is 100ms but i want more data within the time span, so I changed it to 30ms using the function setIntermeasurementPeriod();.
-                                        
+                                        Based on this, I estimated that my reasonable range of proportional controller gain will be between 0.01-0.1. From actual testing, I found my robot to slightly crash at the wall when my initial distance is 2000mm from the wall and my Kp=0.06.
+                                        So, I decided to record and compare my distance from the wall, proportional controller's calcuated speed input, and the actual motor input, for Kp=0.01 to Kp=0.06, with 0.01 increments.
+                                        For my ToF sensor, I decided to change the sampling time. The default is 100ms, but I want more data within the time span, so I changed it to 30ms using the function setIntermeasurementPeriod();
                                     </p>
 
-                                    <h5>Graphs, code, videos, images, discussion of reaching task goal:</h5>
-                                    <p class="mb-4"></p>
+                                    <h5>Testing different Kp values:</h5>
+                                    <p class="mb-4">Below are my results for Kp = 0.01, 0.02, 0.03, 0.04, 0.05, and 0.06.</p>
+
+                                    <p class="mb-4"><b>Kp = 0.01:</b></p>
+                                    <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab6/Kp=0.1_d.PNG" alt="...">
+                                    <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab6/Kp=0.1_m.png" alt="...">
+                                    <div class="embed-container">
+                                        <iframe width="560" height="315" src="https://www.youtube.com/embed/3ehVTptunR4" frameborder="0" allowfullscreen></iframe>
+                                    </div>
+                                    <br>
+                                    
+                                    <p class="mb-4"><b>Kp = 0.02:</b></p>
+                                    <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab6/Kp=0.2_d.PNG" alt="...">
+                                    <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab6/Kp=0.2_m.png" alt="...">
+                                    <div class="embed-container">
+                                        <iframe width="560" height="315" src="https://www.youtube.com/embed/dbDeI4MexMU" frameborder="0" allowfullscreen></iframe>
+                                    </div>
+                                    <br>
+
+                                    <p class="mb-4"><b>Kp = 0.03:</b></p>
+                                    <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab6/Kp=0.3_d.PNG" alt="...">
+                                    <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab6/Kp=0.3_m.png" alt="...">
+                                    <div class="embed-container">
+                                        <iframe width="560" height="315" src="https://www.youtube.com/embed/uvmAfBA4fjw" frameborder="0" allowfullscreen></iframe>
+                                    </div>
+                                    <br>
+
+                                    <p class="mb-4"><b>Kp = 0.04:</b></p>
+                                    <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab6/Kp=0.4_d.PNG" alt="...">
+                                    <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab6/Kp=0.4_m.png" alt="...">
+                                    <div class="embed-container">
+                                        <iframe width="560" height="315" src="https://www.youtube.com/embed/22Tj7sn0mks" frameborder="0" allowfullscreen></iframe>
+                                    </div>
+                                    <br>
+
+                                    <p class="mb-4"><b>Kp = 0.05:</b></p>
+                                    <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab6/Kp=0.5_d.PNG" alt="...">
+                                    <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab6/Kp=0.5_m.png" alt="...">
+                                    <div class="embed-container">
+                                        <iframe width="560" height="315" src="https://www.youtube.com/embed/iioCsaAeMy4" frameborder="0" allowfullscreen></iframe>
+                                    </div>
+                                    <br>
+
+                                    <p class="mb-4"><b>Kp = 0.06:</b></p>
+                                    <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab6/Kp=0.6_d.PNG" alt="...">
+                                    <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab6/Kp=0.6_m.png" alt="...">
+                                    <div class="embed-container">
+                                        <iframe width="560" height="315" src="https://www.youtube.com/embed/m73OQ4lpcu8" frameborder="0" allowfullscreen></iframe>
+                                    </div>
+                                    <br>
+
+                                    <p class="mb-4"><b>Combined Kp:</b></p>
+                                    <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab6/distance_combined.png" alt="...">
+                                    <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab6/motor_input_combined.PNG" alt="...">
+                                    
                                     <h5>A: Graph data should include Tof vs time and Motor input vs time:</h5>
-                                    <p class="mb-4"></p>
-
-                                    <p class="mb-4">Kp = 0.2</p>
-                                    <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab6/Kp=0.2.png" alt="...">
-                                    <div class="embed-container">
-                                        <iframe width="560" height="315" src="https://www.youtube.com/embed/2N6nbiVDO1I" frameborder="0" allowfullscreen></iframe>
-                                    </div>
-
-                                    <p class="mb-4">Kp = 0.3</p>
-                                    <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab6/Kp=0.3.png" alt="...">
-                                    <div class="embed-container">
-                                        <iframe width="560" height="315" src="https://www.youtube.com/embed/-u42sIdgtAA" frameborder="0" allowfullscreen></iframe>
-                                    </div>
-
-                                    <p class="mb-4">Kp = 0.4</p>
-                                    <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab6/Kp=0.4.png" alt="...">
-                                    <div class="embed-container">
-                                        <iframe width="560" height="315" src="https://www.youtube.com/embed/78xgK1Ckc50" frameborder="0" allowfullscreen></iframe>
-                                    </div>
-
-                                    <p class="mb-4">Kp = 0.5</p>
-                                    <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab6/Kp=0.5.png" alt="...">
-                                    <div class="embed-container">
-                                        <iframe width="560" height="315" src="https://www.youtube.com/embed/8jF6jG94xUc" frameborder="0" allowfullscreen></iframe>
-                                    </div>
-
-                                    <p class="mb-4">Kp = 0.6</p>
-                                    <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab6/Kp=0.6.png" alt="...">
-                                    <div class="embed-container">
-                                        <iframe width="560" height="315" src="https://www.youtube.com/embed/rmpFLpLv5wA" frameborder="0" allowfullscreen></iframe>
-                                    </div>
-
-                                    <p class="mb-4">Combibed Kp</p>
-                                    <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab6/distance_combined.png" alt="...">
-                                    <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab6/speed_combined.png" alt="...">
-
+                                    <p class="mb-4"> From ranging the Kp from 0.01 to 0.06, I oberserved as I increase the Kp, the more I go from having a conservative control to an aggressive control.
+                                        When the Kp is too small, like when it was at Kp=0.01, the car barely overshoots and doesn't really oscillate, but it take a long time for the car to arrive even near the target distance.
+                                        When the Kp is too big, like when it was at Kp=0.06, the settling time is the quickiest, but the aggresive overshoot causes the car to crash into the wall. 
+                                        So, I think I am the most satisfied with the results from Kp=0.04, since it had relatively quick settling time and wasn't causing my car to crash into the wall when I tested it repeatedly
+                                        Kp=0.05 also had a quick settling time, but it caused my car to crash into the wall one out of three times, making it a less favorable choice.
+                                    </p>
 
 
                                     <div class="text-center">
