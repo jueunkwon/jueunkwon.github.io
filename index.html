@@ -1058,87 +1058,114 @@
                                     <h3 class="text-center">Lab Tasks</h3>
                                     <!--<p class="mb-4">the procedure of this lab</p>-->
                                     <h5>Estimate drag and momentum:</h5>
-                                    <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab7/state_space_eq.PNG" alt="...">
+                                    <p class="mb-4"> State spaxe equation, as stated in the lecture, is shown below:</p>
+                                    <p class="text-center mb-4">
+                                        [ẋ; ẍ] = [0, 1; 0, -d/m][x; ẋ] + [0; 1/m]u <br>
+                                        C = [-1, 0]
+                                    </p>
+                                    
                                     <p class="mb-4">In order to build my state space model for my system, I have to estimate the drag and momentum terms for my A and B matrices. 
-                                        In order to do so, I drove my robot towards a wall at a constant speed, while loggin my time, distance sensor reading, and my motor input.
-                                        I choose a max PWM value I used in my lab 6, which was a little bit less than 100. 
-                                        
+                                        In order to do so, I drove my robot towards a wall at a constant speed, while logging time, distance sensor readings, and my motor input.
+                                        I choose a max PWM value I used in my lab 6, which was a little bit less than 100.
+                                    </p>
+                                    
+                                    <p class="mb-4">
                                         Then, I created a command to go foward towards a wall for a reasonable about of time to ensure that I reach a steady state constant speed.
-                                        Graphs of my data are shown below. The data after my distance reading will be thrown out since that is after my robot crashed into a wall.
-                                        Reflecting on my data collection system, it would have been better to put a hard stop on the software side to minimize the mechanical damage on the robot.
+                                        Graphs of my data are shown below. The data after my distance reading reads zero will be thrown out since that is after my robot crashed into a wall.
+                                        Reflecting on my data collection system, it would have been better to put a hard stop on the software side to minimize the mechanical damage on the robot when ramming into a wall.
                                     </p>
 
-                                    <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab7/find_d.PNG" alt="...">
-                                    <p class="mb-4">
+                                    <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab7/wall_dist.PNG" alt="...">
+                                    <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab7/wall_motor_input.PNG" alt="...">
+
+
+                                    <p class="mb-4">We can manipulate the force equation to find an equation for acceleration:</p>
+                                    <p class="text-center mb-4">
                                         F = ma = mẍ and F = u-dẋ<br>
                                         mẍ = u-dẋ<br>
-                                        ẍ = (u/m)-(d/m)ẋ<br><br>
- 
-                                        At constant constant speed, ẍ is zero. So, we can find drag:<br>
+                                        ẍ = (u/m)-(d/m)ẋ
+                                    </p>
+                                    <p class="mb-4">At constant constant speed, ẍ is zero. So, we can find drag:</p>
+                                    <p class="text-center mb-4">
                                         ẍ = 0 = (u/m)-(d/m)ẋ<br>
                                         (u)-(d)ẋ = 0<br>
                                         d = u/ẋ<br>
                                     </p>
-                                    <p class="mb-4">
-                                        From the graph, it seems like I didn't quite make it to stedy state. Since I am very close to steady state, I will my last derivative term, marked with a oragnge dot on my graph, to calculate drag.
-                                        From the graph, I found ẋ to be -1966.67. Then, d = 1/1966.67mms^-1 ≈ 0.0005.
 
-                                        For 90% rise time, 90% of 1966.67mm/s is 1770mm/s. From the graph, I grabbed two data points near 1770mm/s and found the 90% rise time by linearly interpolating.
-                                    </p>>
+                                    <p class="mb-4">
+                                        From the graph, it seems like I didn't quite make it to stedy state. Since I am very close to steady state, I will use my last derivative term, marked with an orange dot on my graph, to calculate drag.
+                                        From the graph, I found ẋ to be -1966.67. Then, d = 1/1966.67mms^-1 ≈ 0.0005.
+                                    </p>
                                     <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab7/drag_graph.PNG" alt="...">
 
                                     <p class="mb-4">
-                                        time = (1770-1715)/(1797-1715)*(1.666-1.607)+1.607 = 1.64657s, as shown by the green dot on the graph. 
-                                        However, since my velocity slope started at 0.324sec, my 90% rise time is approximately 1.32657s. 
+                                        For 90% rise time, 90% of 1966.67mm/s is 1770mm/s. From the graph, I grabbed two data points near 1770mm/s and found the 90% rise time by linearly interpolating.
+                                        90% rise time = (1770-1715)/(1797-1715)*(1.666-1.607)+1.607 = 1.64657s, as shown by the green dot on the graph below.
+                                        However, since my velocity slope started at 0.324sec, my 90% rise time is approximately 1.32657s.
                                     </p>
                                     <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab7/rise_time_graph.PNG" alt="...">
 
-                                    <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab7/find_m.PNG" alt="...">
-                                    <p class="mb-4">
-                                        Now, I can use my rise time to find m.<br>
+                                    <p class="mb-4">Now, I can use my rise time to find m.</p>
+                                    <p class="text-center mb-4">    
                                         v̇ = (u/m) - (d/m)v<br>
                                         v = 1 - e^((-d/m)*t_0.9)<br>
                                         1-v = e^((-d/m)*t_0.9)<br>
                                         ln(1-v) = (d/m)*t_0.9<br>
-                                        m = (-d*t_0.9)/(ln(1-0.9))<br><br>
-
-                                        When I plug in my d = 0.0005 and t_0.9 = 1.32657:<br>
-                                        m = (-0.0005*1.32657)/(ln(1-0.9)) = 
+                                        m = (-d*t_0.9)/(ln(1-0.9))<br>
+                                    </p>
+                                    <p class="mb-4">When I plug in my d = 0.0005 and t_0.9 = 1.32657,</p>
+                                    <p class="text-center mb-4">
+                                        m = (-0.0005*1.32657)/(ln(1-0.9))<br>
                                         m = 0.000288<br>
                                     </p>
 
-                                    <p class="mb-4">Going back to the state space equation,<br>
+                                    <h5>Initialize KF:</h5>
+                                    <p class="mb-4">Going back to the state space equation,</p>
+                                    <p class="text-center mb-4">
                                         [ẋ; ẍ] = A [x; ẋ] + B [u] = [0, 1; 0 -d/m] [x; ẋ] + [0, 1/m] [u]<br>
                                         A = [0, 1; 0 -d/m] = [0, 1; 0 -0.0005/0.000288] ≈ [0, 1; 0 1.7361]<br>
-                                        B = [0, 1/m] = [0, 1/0.000288] = [0, 3472]<br>
+                                        B = [0, 1/m] = [0, 1/0.000288] ≈ [0, 3472]<br>
                                         C = [-1 0]<br>
-                                        The C matrix was given in the lecture. The first term is negative because we are going negative disances towards a wall.
+                                    </p>
+                                    <p class="mb-4">The C matrix was given in the lecture. The first term is negative because we are going negative disances towards a wall.</p>
+
+                                    <p class="mb-4">In order to have a good Kalman Filter, I need to specify my process and sensor noise. sig_u is process noise, and sig_z is measurement noise.
+                                        In addition, σ1 is modeled position noise, σ2 is modeled speed noise, and σ3 is measurement noise.</p>
+                                    <p class="text-center mb-4">
+                                        sig_u = [σ1^2, 0; 0 σ2^2] <br>
+                                        sig_z = [σ3^2]
+                                    </p>
+                                    <p class="mb-4">
+                                        In the realtively linear reigon of my data, I got 22 sample in 1.517seconds. This is a sample rate of about 14.5Hz.
+                                        I calculated my measurement noise, σ3, by taking a variance of my ToF data over time when it is sitting still. σ3 came out to be around 108.8mm.
+                                    </p>
+                                    <p class="mb-4">A method to have an starting estimate for σ1 and σ2, as shown is lecture, is doing σ1 = σ2 = sqrt(10^2 * (1/(sampling rate))). In my case, it came out to be around 38</p>
+  
+                                    <p class="mb-4">Below is my Kalman Filter initializations on Jupyter:</p>
+                                    <script src="https://gist.github.com/jueunkwon/7323c91e1bad8cbf550a6e9360a415a1.js"></script>
+
+
+                                    <h5>Implement and test Kalman Filter in Jupyter:</h5>
+                                    <p class="mb-4">To sanity check my parameters, I will implement my Kalman Filter in Jupyter first. Below is my Kalman Filter implementation on Jupyter:</p>
+                                    <script src="https://gist.github.com/jueunkwon/93ad4cb57b83327ec745777dd524e45d.js"></script>
+
+                                    <h5>Extrapolation:</h5>
+                                    <p class="mb-4">I tested my Kalman Filter with my straight run to the wall data I collected in the beginning of this lab. The orange dots on the graphs below are my ToF sensor data, and my blue line is my estimated Kalman Filter distance.
+                                        My estimated Kalman Filter distance will help my car estimate when I am exactly 1ft away from the wall quicker.
+                                        Kalman filter estimated distances complmentry to my slow ToF data will optimze my car's performance.
                                     </p>
 
-                                    <h5>Initialize KF:</h5>
                                     <p class="mb-4">
-                                        In the realtively linear reigon of my data, I take got 22 sample in 1.517seconds. This is a sample rate of about 14.5Hz.
-                                        I calculated my measurement noise, σ3, by taking a variance of my ToF data over tume when it is sitting still. σ3 came out to be around 108.8mm.
-                                    </p>
-
-                                    <h5>Implement and test your Kalman Filter in Jupyter:</h5>
-                                    <p class="mb-4">
-                                        When I make the uncertainty for my modeled position and my molded speed low and my uncertainty for my measurement noise high, meaning I put more stress on the model and less on the sensor values, I am very off from the actual data points.
-                                        Below is my graph when sigma_1 = 38, sigma_2 = 38 and sigma_3 = 108.8.
+                                        When I make the uncertainty for my modeled position and my modeled speed low and my uncertainty for my measurement noise high, meaning I put more stress on the model and less on the sensor values, I am very off from the actual data points.
+                                        Below is my graph when σ1 = 38, σ2 = 38 and σ3 = 108.8.
                                     </p>
                                     <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab7/kf_try1.PNG" alt="...">
 
-
                                     <p class="mb-4">
-                                        When I make the uncertainty for my modeled position and my molded speed really high and my uncertainty for my measurement noise low, meaning I put more stress on the sensor values and less on the model, I get very close to the actual data points.
-                                        Below is my graph when sigma_1 = 100, sigma_2 = 100 and sigma_3 = 10.
+                                        When I make the uncertainty for my modeled position and my modeled speed really high and my uncertainty for my measurement noise low, meaning I put more stress on the sensor values and less on the model, I get very close to the actual data points.
+                                        Below is my graph when σ1 = 100, σ2 = 100 and σ3 = 10.
                                     </p>
                                     <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab7/kf_good.PNG" alt="...">
-
-
-
-                                    <h5>Extrapolation:</h5>
-                                    <p class="mb-4"></p>
 
                                     <div class="text-center">
                                         <button class="btn btn-primary" data-bs-dismiss="modal">
