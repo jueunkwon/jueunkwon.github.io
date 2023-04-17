@@ -1199,18 +1199,43 @@
                                     </div>
 
                                     <h3 class="text-center">Goal</h3>
-                                    <p class="mb-4">The goal of this lab is for my car to start before the designated start line, drive fast forward, upon reaching the sticky matt with a center located 0.5m from the wall, perform a flip, and drive back in the direction from which it came.</p>
+                                    <p class="mb-4">The goal of this lab is for my car to drive forward, do a flip on a sticky matt, and return to where it came from, as fast as possible.</p>
 
                                     <h3 class="text-center">Lab Tasks</h3>
                                     <!--<p class="mb-4">the procedure of this lab</p>-->
                                     <h5>Task A: Position Control</h5>
+                                    <p class="mb-4">In order to successful perform this lab, I need to do couple of tasks in order:</p>
+                                    <p class="mb-4">
+                                        1. Start at the designated start line <br>
+                                        2. Drive forward as fast as possible<br>
+                                        3. Upon reaching the sticky matt with a center located 0.5m from the wall, do a flip<br>
+                                        4. Drive back in the direction from which it came from, as fast as possible
+                                    </p>
+
+                                    <p class="mb-4">
+                                        At first, I tried to do something fancy where I use a combination of PID position control and Kalman Filter to accomplish this task.
+                                        In order to measure distances upto 360cm away from the wall, I changed the ToF sensors to long distance mode.
+                                        Distance sensor takes a measurement about every 0.1 seconds. However, since my car is going very fast, at a motor input of 255, the distance sensor's frequency was not fast enough to localize the car at any given time. 
+                                        After numerous unsuccessful tries, I resorted to performing each task for a given amount of time range.
+                                    </p>
+
+                                    <p class="mb-4">After a lot of testing, I concluded on the follow preceedure to accomplish the tasks:</p>
+                                    <p class="mb-4">
+                                        1. Go forward for 1 second while logging distance and speed. This gets me to about the center of the sticky matt. In adddition, this makes sure I have enough momentum to do a flip. <br><br>
+                                        2. Go backward for 0.55 seconds to do a flip. Then stop very briefly, for 0.04seconds, to make my motors not spin while I am flipping. When I don't stop turning my wheels while I am flipping, I realized the momentum of the wheel spinning causes my car to jerk or make one of the spinning wheels touch the ground first, causing my car to be off angled. <br><br>
+                                        3. Go backward for 0.95 seconds to come back to the start line. 
+                                    </p>
+
+                                    <p class="mb-4">Battery level affected how fast or slow my car moved, but the preceedure above proved to be quite reliable. On average, I do the entire stunt in about 2.8 seconds. My fastest run was about 2.5 seconds.</p>
                                     
+                                    <p class="mb-4">Below is my stunt code in Ardunio:</p>
+                                    <script src="https://gist.github.com/jueunkwon/232dbde19fff31909a7fb11bbafd6a1c.js"></script>
 
                                     <h5>Trial 1:</h5>
                                     <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab8/trial1_dist.PNG" alt="...">
                                     <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab8/trial1_speed.PNG" alt="...">
                                     <div class="embed-container">
-                                        <iframe width="560" height="315" src="https://www.youtube.com/embed/bv5Ep1WFM9o" frameborder="0" allowfullscreen></iframe>
+                                        <iframe width="560" height="315" src="https://www.youtube.com/embed/Rbku2YRhi5M" frameborder="0" allowfullscreen></iframe>
                                     </div>
                                     <br>
 
@@ -1218,7 +1243,7 @@
                                     <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab8/trial2_dist.PNG" alt="...">
                                     <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab8/trial2_speed.PNG" alt="...">
                                     <div class="embed-container">
-                                        <iframe width="560" height="315" src="https://www.youtube.com/embed/Taak0c_8Rkk" frameborder="0" allowfullscreen></iframe>
+                                        <iframe width="560" height="315" src="https://www.youtube.com/embed/uPNVm4FkAfA" frameborder="0" allowfullscreen></iframe>
                                     </div>
                                     <br>
 
@@ -1226,7 +1251,7 @@
                                     <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab8/trial3_dist.PNG" alt="...">
                                     <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab8/trial3_speed.PNG" alt="...">
                                     <div class="embed-container">
-                                        <iframe width="560" height="315" src="https://www.youtube.com/embed/4U7blcykntA" frameborder="0" allowfullscreen></iframe>
+                                        <iframe width="560" height="315" src="https://www.youtube.com/embed/hRQ3xACfS8w" frameborder="0" allowfullscreen></iframe>
                                     </div>
                                     <br>
 
@@ -1234,12 +1259,16 @@
                                     <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab8/combined_dist.PNG" alt="...">
                                     <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab8/combined_speed.PNG" alt="...">
 
-                                    <p class="mb-4">The combined graph shows how the task is repeatable.</p>
+                                    <p class="mb-4">The combined graph shows how the task is repeatable.
+                                        In addition, it shows that distance sensor's frequency is not fast enough to localize the car at any given time.
+                                        The last distance measurement, before the flip, is at about 200cm. However, the robot is actually at around 50cm from the wall. 
+                                    </p>
 
-
-                                    
-
-
+                                    <h5>Bloopers:</h5>
+                                    <p class="mb-4">Here are all the blooper vidoes from testing. Enjoy!</p>
+                                    <div class="embed-container">
+                                        <iframe width="560" height="315" src="https://www.youtube.com/embed/jbcZZ0grSlE" frameborder="0" allowfullscreen></iframe>
+                                    </div>
 
                                     <div class="text-center">
                                         <button class="btn btn-primary" data-bs-dismiss="modal">
