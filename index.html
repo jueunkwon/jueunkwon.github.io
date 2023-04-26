@@ -1302,24 +1302,86 @@
                                     </div>
 
                                     <h3 class="text-center">Goal</h3>
-                                    <p class="mb-4">The goal of this lab...</p>
+                                    <p class="mb-4">The goal of this lab...TODO</p>
 
                                     <h3 class="text-center">Lab Tasks</h3>
                                     <!--<p class="mb-4">the procedure of this lab</p>-->
+
                                     <h5>Control</h5>
-                                    <p class="mb-4">...</p>
+                                    <p class="mb-4">I choose to do angular speed control.
+                                        I created a proportional controller that works directly on the raw angular velocity. 
+                                        This is beneficial over orientation control because I can avoid gyroscope drift, which is accumulating errors during integration.
+                                    </p>
+                                    <p class="mb-4">
+                                        Please quantify and/or use graphs to document that your PID controller works well, and upload a video that shows how your robot turns.
+                                        TODO
+
+                                        Given the slowest speed you are able to achieve, how much does the orientation of the robot change during a single measurement? If you were spinning in the middle of a 4x4m2 empty, square room, what kind of accuracy can you expect?
+                                        TODO
+
+                                    </p>
+                                    <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/pid_motor_input.PNG" alt="...">
+                                    <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/pid_distance.PNG" alt="...">
+                                    <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/pid_angular_velocity.PNG" alt="...">
+                                    <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/pid_angle.PNG" alt="...">
 
                                     <h5>Read out Distances</h5>
                                     <p class="mb-4">...</p>
 
+                                    <p class="mb-4"><b>Bottom Right Corner (5,-3):</b></p>
+                                    <div class="text-center">
+                                        <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/m_br.PNG" alt="...">
+                                        <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/d_br.PNG" alt="...">
+                                        <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/av_br.PNG" alt="...">
+                                        <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/a_br.PNG" alt="...">
+                                        <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/p_br.PNG" alt="...">
+                                    </div>
+
+                                    <p class="mb-4"><b>Top Right Corner (5,3):</b></p>
+                                    <div class="text-center">
+                                        <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/m_tr.PNG" alt="...">
+                                        <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/d_tr.PNG" alt="...">
+                                        <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/av_tr.PNG" alt="...">
+                                        <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/a_tr.PNG" alt="...">
+                                        <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/p_tr.PNG" alt="...">
+                                    </div>
+
+                                    <p class="mb-4"><b>Top Middle Corner (0,3):</b></p>
+                                    <div class="text-center">
+                                        <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/m_tm.PNG" alt="...">
+                                        <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/d_tm.PNG" alt="...">
+                                        <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/av_tm.PNG" alt="...">
+                                        <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/a_tm.PNG" alt="...">
+                                        <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/p_tm.PNG" alt="...">
+                                    </div>
+
+                                    <p class="mb-4"><b>Bottom Left Corner (-3,-2):</b></p>
+                                    <div class="text-center">
+                                        <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/m_bl.PNG" alt="...">
+                                        <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/d_bl.PNG" alt="...">
+                                        <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/av_bl.PNG" alt="...">
+                                        <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/a_bl.PNG" alt="...">
+                                        <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/p_bl.PNG" alt="...">
+                                    </div>
+
+
+
                                     <h5>Merge and Plot Readings</h5>
                                     <p class="mb-4">...</p>
+                                    <div class="text-center">
+                                        <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/p_tm.PNG" alt="...">
+                                        <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/p_tr.PNG" alt="...">
+                                        <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/p_bl.PNG" alt="...">
+                                        <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/p_br.PNG" alt="...">
+                                    </div>
 
-                                    <h5>Control</h5>
-                                    <p class="mb-4">...</p>
-
+                                    <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/merged_scatter.PNG" alt="...">
+                                    
                                     <h5>Convert to Line-Based Map</h5>
                                     <p class="mb-4">...</p>
+                                    <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/merged_line.PNG" alt="...">
+                                    <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/merged_theoretical.PNG" alt="...">
+                                    <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/merged_both.PNG" alt="...">
  
                                     <div class="text-center">
                                         <button class="btn btn-primary" data-bs-dismiss="modal">
