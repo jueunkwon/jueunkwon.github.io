@@ -1216,7 +1216,7 @@
                                         At first, I tried to do something fancy where I use a combination of PID position control and Kalman Filter to accomplish this task.
                                         In order to measure distances upto 360cm away from the wall, I changed the ToF sensors to long distance mode.
                                         Distance sensor takes a measurement about every 0.1 seconds. However, since my car is going very fast, at a motor input of 255, the distance sensor's frequency was not fast enough to localize the car at any given time. 
-                                        After numerous unsuccessful tries, I resorted to performing each task for a given amount of time range.
+                                        After numerous unsuccessful tries, I resorted to open loop control--performing each task for a given amount of time range.
                                     </p>
 
                                     <p class="mb-4">After a lot of testing, I concluded on the follow preceedure to accomplish the tasks:</p>
