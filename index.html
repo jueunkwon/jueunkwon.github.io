@@ -1302,33 +1302,62 @@
                                     </div>
 
                                     <h3 class="text-center">Goal</h3>
-                                    <p class="mb-4">The goal of this lab...TODO</p>
+                                    <p class="mb-4">The goal of this lab is to map out a static room by placing the robot at couple different locations of the room and merging the results.</p>
 
                                     <h3 class="text-center">Lab Tasks</h3>
                                     <!--<p class="mb-4">the procedure of this lab</p>-->
 
                                     <h5>Control</h5>
-                                    <p class="mb-4">I choose to do angular speed control.
-                                        I created a proportional controller that works directly on the raw angular velocity. 
+                                    <p class="mb-4">In order to create a good quailty map, I decided to do angular speed control.
+                                        I created a proportional controller that works directly on the raw angular velocity of my robot turning.
                                         This is beneficial over orientation control because I can avoid gyroscope drift, which is accumulating errors during integration.
                                     </p>
+
                                     <p class="mb-4">
-                                        Please quantify and/or use graphs to document that your PID controller works well, and upload a video that shows how your robot turns.
-                                        TODO
-
-                                        Given the slowest speed you are able to achieve, how much does the orientation of the robot change during a single measurement? If you were spinning in the middle of a 4x4m2 empty, square room, what kind of accuracy can you expect?
-                                        TODO
-
+                                        From lots of testing, I found out that my robots spins better when I turn right (CW) compared to when I turn left (CCW).
+                                        In addition, my robot turns most axially and steady with the motor input value of 110 (with the deadband below 70), an angular speed of 70, and Kp of 1.
+                                        Below is my code snippet to do proportional control on angular speed.
                                     </p>
-                                    <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/pid_motor_input.PNG" alt="...">
-                                    <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/pid_distance.PNG" alt="...">
-                                    <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/pid_angular_velocity.PNG" alt="...">
-                                    <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/pid_angle.PNG" alt="...">
+                                    <script src="https://gist.github.com/jueunkwon/fa125ec2fa49c8c74ce031499598db37.js"></script>
+
+                                    <p class="mb-4">Below is my robot spinning, roughly on axis, with the proportional controller. The wheels are tapped in order to minimize friction when rotating.</p>
+                                    <div class="embed-container">
+                                        <iframe width="560" height="315" src="https://www.youtube.com/embed/4KU6MRMobiQ" frameborder="0" allowfullscreen></iframe>
+                                    </div>
+
+                                    <p class="mb-4">Graphs below show my data readings when my robot turns two full rotations.
+                                        I collected 144 data points during the two rotations. That is about 72 data points per 360 degrees, which is equivalent to a data point per 5 degrees in rotation.
+                                        My time vs distance graph looks pretty similar in the first and second rotation.
+                                        It can be observed at my angular speed tries to remain relatively constant, due to the proportional controller.
+                                        The time vs angle graph looks like it is steadly increasing.
+                                        These findings can be verified in the polar graph. The map from the first rotation and the second rotation seems very close to each other.
+                                    </p>
+                                    
+                                    <div class="text-center">
+                                        <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/pid_motor_input.PNG" alt="...">
+                                        <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/pid_distance.PNG" alt="...">
+                                        <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/pid_angular_velocity.PNG" alt="...">
+                                        <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/pid_angle.PNG" alt="...">
+                                        <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/pid_polar.PNG" alt="...">
+                                    </div>                                   
+
+                                    <p class="mb-4">Below is my robot spinning with open loop control. 
+                                        Theortically, my robot is supposed to give more uniformly spaced out and more on axis spin data with angular speed control.
+                                        However, the bad quailty of my motors made my open loops control spin better than angular speed control.
+                                        Although my open loop control performs better, in order to get fully credit on this lab, I will use angular speed control.
+                                    </p>
+                                    <div class="embed-container">
+                                        <iframe width="560" height="315" src="https://www.youtube.com/embed/kIEDWH7xvd4" frameborder="0" allowfullscreen></iframe>
+                                    </div>
+
 
                                     <h5>Read out Distances</h5>
-                                    <p class="mb-4">...</p>
+                                    <p class="mb-4">I placed my robot in four of the marked positions in the lab space and recorded data for two full rotations. Below are the results.</p>
 
                                     <p class="mb-4"><b>Bottom Right Corner (5,-3):</b></p>
+                                    <div class="embed-container">
+                                        <iframe width="560" height="315" src="https://www.youtube.com/embed/rlpIhDK-byM" frameborder="0" allowfullscreen></iframe>
+                                    </div>
                                     <div class="text-center">
                                         <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/m_br.PNG" alt="...">
                                         <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/d_br.PNG" alt="...">
@@ -1336,8 +1365,11 @@
                                         <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/a_br.PNG" alt="...">
                                         <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/p_br.PNG" alt="...">
                                     </div>
-
+                                    
                                     <p class="mb-4"><b>Top Right Corner (5,3):</b></p>
+                                    <div class="embed-container">
+                                        <iframe width="560" height="315" src="https://www.youtube.com/embed/EakpAbOnS0A" frameborder="0" allowfullscreen></iframe>
+                                    </div>
                                     <div class="text-center">
                                         <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/m_tr.PNG" alt="...">
                                         <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/d_tr.PNG" alt="...">
@@ -1347,6 +1379,9 @@
                                     </div>
 
                                     <p class="mb-4"><b>Top Middle Corner (0,3):</b></p>
+                                    <div class="embed-container">
+                                        <iframe width="560" height="315" src="https://www.youtube.com/embed/-jbd8yVodtY" frameborder="0" allowfullscreen></iframe>
+                                    </div>
                                     <div class="text-center">
                                         <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/m_tm.PNG" alt="...">
                                         <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/d_tm.PNG" alt="...">
@@ -1356,6 +1391,9 @@
                                     </div>
 
                                     <p class="mb-4"><b>Bottom Left Corner (-3,-2):</b></p>
+                                    <div class="embed-container">
+                                        <iframe width="560" height="315" src="https://www.youtube.com/embed/xlYLl1kUDlQ" frameborder="0" allowfullscreen></iframe>
+                                    </div>
                                     <div class="text-center">
                                         <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/m_bl.PNG" alt="...">
                                         <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/d_bl.PNG" alt="...">
@@ -1364,25 +1402,97 @@
                                         <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/p_bl.PNG" alt="...">
                                     </div>
 
-
-
                                     <h5>Merge and Plot Readings</h5>
-                                    <p class="mb-4">...</p>
+                                    <p class="mb-4">I need to convert measurements from the distance sensor to the inertial reference frame of the room.
+                                        I will do that by doing x = dist*cos(angle) + inital_x_pos and y = dist*sin(angle) + inital_y_pos.
+                                        Since distance sensor readings are in mm and my inital positions are in feet, I will convert feet to mm.
+                                    </p>
+
+                                    <p class="mb-4 text-center">
+                                        #bottom right = (5,-3)<br>
+                                        x_br = d_br*np.cos(ar_br) + (5*304.8)<br>
+                                        y_br = d_br*np.sin(ar_br) - (3*304.8) <br><br>
+
+
+                                        #top right = (5,3)<br>
+                                        x_tr = d_tr*np.cos(ar_tr) + (5*304.8)<br>
+                                        y_tr = d_tr*np.sin(ar_tr) + (3*304.8)<br><br>
+
+
+                                        #top middle = (0,3)<br>
+                                        x_tm = d_tm*np.cos(ar_tm)<br>
+                                        y_tm = d_tm*np.sin(ar_tm) + (3*304.8)<br><br>
+
+                                        #bottom left = (-3,-2)<br>
+                                        x_bl = d_bl*np.cos(ar_bl) - (3*304.8)<br>  
+                                        y_bl = d_bl*np.sin(ar_bl) - (2*304.8)
+                                    </p>
+
+                                    
                                     <div class="text-center">
-                                        <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/p_tm.PNG" alt="...">
-                                        <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/p_tr.PNG" alt="...">
-                                        <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/p_bl.PNG" alt="...">
-                                        <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/p_br.PNG" alt="...">
+                                        <img class="img-fluid rounded mb-5" width="150" src="assets/img/lab9/p_tm.PNG" alt="...">
+                                        <img class="img-fluid rounded mb-5" width="150" src="assets/img/lab9/p_tr.PNG" alt="...">
+                                        <img class="img-fluid rounded mb-5" width="150" src="assets/img/lab9/p_bl.PNG" alt="...">
+                                        <img class="img-fluid rounded mb-5" width="150" src="assets/img/lab9/p_br.PNG" alt="...">
+                                    </div>
+                                    <div class="text-center">
+                                        <img class="img-fluid rounded mb-5" width="500" src="assets/img/lab9/merged_scatter.PNG" alt="...">
                                     </div>
 
-                                    <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/merged_scatter.PNG" alt="...">
-                                    
                                     <h5>Convert to Line-Based Map</h5>
-                                    <p class="mb-4">...</p>
-                                    <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/merged_line.PNG" alt="...">
-                                    <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/merged_theoretical.PNG" alt="...">
-                                    <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/merged_both.PNG" alt="...">
- 
+                                    <p class="mb-4">I want to convert this map into a format I can use later in the later labs.
+                                        So, I will manually estimate where the actual walls and obsticles are based on my scatter plot.
+                                    </p>
+                                    <p class="mb-4 text-center">
+                                        #estimated walls/obsticles<br>
+                                        wall_x = [-600, 2000, 2000, 260, 250, -225, -270, -1600, -1500, -750, -600]<br>
+                                        wall_y = [1500, 1300, -1250, -1100, -850, -850, -1250, -1100, 400, 400, 1500]<br><br>
+
+                                        obsticle_x = [800, 1320, 1320,  770,  800]<br>
+                                        obsticle_y = [765, 755, 200, 200, 750]
+                                    </p>
+                                    <div class="text-center">
+                                        <img class="img-fluid rounded mb-5" width="500" src="assets/img/lab9/merged_line.PNG" alt="...">
+                                    </div>
+
+                                    <p class="mb-4">
+                                        This is the actual set up of the map. As can be seen, some walls of the actual set up were crooked. This probably the cause of my merged map looking croocket on some sides.
+                                        In the future labs, I will make sure the set up is not crooked before performing the lab tasks.
+                                    </p>
+                                    <div class="text-center">
+                                        <img class="img-fluid rounded mb-5" width="500" src="assets/img/lab9/map.jpg" alt="...">
+                                    </div>
+                                    
+                                    
+                                    <p class="mb-4">
+                                        Theoretically, if my set up wasn't croocked, I think my walls and obsticles would have been closer to the list below.
+                                    </p>
+                                    <p class="mb-4 text-center">
+                                        #theoretical walls/obsticles<br>
+                                        wall_x = [ -762, 2057.4, 2057.4, -1600.2, -1600.2,  -762,   -762]<br>
+                                        wall_y = [ 1371.6, 1371.6,  -1295.4,  -1295.4, 335.28, 335.28,  1371.6]<br><br>
+
+                                        box1_x = [-152.4,  152.4,  152.4, -152.4, -152.4]<br>
+                                        box1_y = [ -883.92,  -883.92, -1295.4,  -1295.4,   -883.92]<br><br>
+
+                                        box2_x = [ 838.2, 1295.4, 1295.4,  838.2,  838.2]<br>
+                                        box2_y = [685.8, 685.8, 228.6, 228.6, 685.8]
+                                    </p>
+                                    <div class="text-center">
+                                        <img class="img-fluid rounded mb-5" width="500" src="assets/img/lab9/merged_theoretical.PNG" alt="...">
+                                    </div>
+
+                                    <p class="mb-4">
+                                        Lastly, this is my line based map with my estimated and theortical walls and obsticles.
+                                    </p>
+                                    <div class="text-center">
+                                        <img class="img-fluid rounded mb-5" width="500" src="assets/img/lab9/merged_both.PNG" alt="...">
+                                    </div>
+
+                                    <p class="mb-4">
+                                        I referenced <a href="https://anyafp.github.io/ece4960/labs/lab9/">Anya's lab</a> in performing this lab. 
+                                    </p>
+                                    
                                     <div class="text-center">
                                         <button class="btn btn-primary" data-bs-dismiss="modal">
                                             <i class="fas fa-xmark fa-fw"></i>
