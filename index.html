@@ -1149,7 +1149,6 @@
                                     <p class="mb-4">To sanity check my parameters, I will implement my Kalman Filter in Jupyter first. Below is my Kalman Filter implementation on Jupyter:</p>
                                     <script src="https://gist.github.com/jueunkwon/93ad4cb57b83327ec745777dd524e45d.js"></script>
 
-                                    <h5>Extrapolation:</h5>
                                     <p class="mb-4">I tested my Kalman Filter with my straight run to the wall data I collected in the beginning of this lab. The orange dots on the graphs below are my ToF sensor data, and my blue line is my estimated Kalman Filter distance.
                                         My estimated Kalman Filter distance will help my car estimate when I am exactly 1ft away from the wall quicker.
                                         Kalman filter estimated distances complmentry to my slow ToF data will optimze my car's performance.
@@ -1167,6 +1166,30 @@
                                     </p>
                                     <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab7/kf_good.PNG" alt="...">
 
+                                    <h5>Kalman Filter on the Robot:</h5>
+                                    <p class="mb-4">I integrated Kalman Filter into my propotional controller from Lab 6.</p>
+
+                                    <p class="mb-4">Below is my Kalman Filter implementation on Ardunio:</p>
+                                    <script src="https://gist.github.com/jueunkwon/16a4bddbca1100eae6a36e2c6d1b5c4c.js"></script>
+
+                                    <p class="mb-4"><b>Trial 1:</b></p>
+                                    <div class="embed-container">
+                                        <iframe width="560" height="315" src="https://www.youtube.com/embed/B2ucNCD0xqk" frameborder="0" allowfullscreen></iframe>
+                                    </div>
+                                    <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab7/kf_robot_d1.PNG" alt="...">
+                                    <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab7/kf_robot_m1.PNG" alt="...">
+
+                                    <p class="mb-4"><b>Trial 2:</b></p>
+                                    <div class="embed-container">
+                                        <iframe width="560" height="315" src="https://www.youtube.com/embed/_PbJHcmooc8" frameborder="0" allowfullscreen></iframe>
+                                    </div>
+                                    <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab7/kf_robot_d2.PNG" alt="...">
+                                    <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab7/kf_robot_m2.PNG" alt="...">
+
+                                    <p class="mb-4">
+                                        I referenced <a href="https://anyafp.github.io/ece4960/labs/lab7/">Anya's lab</a> in performing this lab. 
+                                    </p>
+                                    
                                     <div class="text-center">
                                         <button class="btn btn-primary" data-bs-dismiss="modal">
                                             <i class="fas fa-xmark fa-fw"></i>
