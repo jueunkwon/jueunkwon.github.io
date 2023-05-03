@@ -1064,15 +1064,15 @@
                                         C = [-1, 0]
                                     </p>
                                     
-                                    <p class="mb-4">In order to build my state space model for my system, I have to estimate the drag and momentum terms for my A and B matrices. 
-                                        In order to do so, I drove my robot towards a wall at a constant speed, while logging time, distance sensor readings, and my motor input.
+                                    <p class="mb-4">In order to build my state space model for the system, I have to estimate the drag and momentum terms for my A and B matrices. 
+                                        In order to do so, I drove my robot towards a wall at a constant motor input value, while logging time, distance sensor readings, and my motor input.
                                         I choose a max PWM value I used in my lab 6, which was a little bit less than 100.
                                     </p>
                                     
                                     <p class="mb-4">
                                         Then, I created a command to go foward towards a wall for a reasonable about of time to ensure that I reach a steady state constant speed.
                                         Graphs of my data are shown below. The data after my distance reading reads zero will be thrown out since that is after my robot crashed into a wall.
-                                        Reflecting on my data collection system, it would have been better to put a hard stop on the software side to minimize the mechanical damage on the robot when ramming into a wall.
+                                        Reflecting on my data collection system, it would have been better to put a hard stop on the software side to avoid the mechanical damage that comes from the robot ramming into a wall.
                                     </p>
 
                                     <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab7/wall_dist.PNG" alt="...">
@@ -1101,7 +1101,7 @@
                                     <p class="mb-4">
                                         For 90% rise time, 90% of 1966.67mm/s is 1770mm/s. From the graph, I grabbed two data points near 1770mm/s and found the 90% rise time by linearly interpolating.
                                         90% rise time = (1770-1715)/(1797-1715)*(1.666-1.607)+1.607 = 1.64657s, as shown by the green dot on the graph below.
-                                        However, since my velocity slope started at 0.324sec, my 90% rise time is approximately 1.32657s.
+                                        However, since my velocity slope started at 0.324sec, my actual 90% rise time is approximately 1.32657s.
                                     </p>
                                     <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab7/rise_time_graph.PNG" alt="...">
 
@@ -1167,9 +1167,14 @@
                                     <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab7/kf_good.PNG" alt="...">
 
                                     <h5>Kalman Filter on the Robot:</h5>
-                                    <p class="mb-4">I integrated Kalman Filter into my propotional controller from Lab 6.</p>
+                                    <p class="mb-4">I integrated Kalman Filter into my propotional controller from Lab 6. 
+                                    </p>
 
-                                    <p class="mb-4">Below is my Kalman Filter implementation on Ardunio:</p>
+                                    <p class="mb-4">I used the drag, mass, dt, and the uncertainty values determined from my simulation when performing Kalman Filter.
+                                        Whenever I have TOF sensor data, I run the update step of the Kalman Filter, and whenever I don't have TOF sensor data, I run the prediction step.
+                                        Although, I constantly take data and perform Kalman Filter, I only log every 5 data points due to my ardunio's storage space.
+                                        Below is my Kalman Filter implementation on Ardunio. 
+                                    </p>
                                     <script src="https://gist.github.com/jueunkwon/16a4bddbca1100eae6a36e2c6d1b5c4c.js"></script>
 
                                     <p class="mb-4"><b>Trial 1:</b></p>
@@ -1186,7 +1191,15 @@
                                     <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab7/kf_robot_d2.PNG" alt="...">
                                     <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab7/kf_robot_m2.PNG" alt="...">
 
-                                    <p class="mb-4">As can be seen, the robot has way less oscillation compared to lab 6 and has a quicker settling time when doing a proptional control.</p>
+                                    <p class="mb-4">Some reminder from lab 6 is that I limit my motor input between 45 and 255 due to the deadband of the motors. 
+                                        In addition, I found Kp value of 0.04 to work the best for my proportional controller in lab 6, so I used that. 
+                                        A disclaimer is that although the graph shows very few sensor data, this is because I logged every 5 data points and not because my sensor acting weird.
+                                        When I logged every data, I couldn't log more than 1 second worth of data so, I had to make this exchange.
+                                    </p>
+
+                                    <p class="mb-4">The graphs from trial 1 and 2 verifies that my Kalman Filter is working correctly. Whenever I don't have sensor data, my robot predicts where I am with the prediction step of the Kalman Filter.
+                                        As can be seen, the robot has way less oscillation compared to lab 6 and has a quicker settling time when doing a proptional control.
+                                    </p>
 
                                     <p class="mb-4">
                                         I referenced <a href="https://anyafp.github.io/ece4960/labs/lab7/">Anya's lab</a> in performing this lab. 
