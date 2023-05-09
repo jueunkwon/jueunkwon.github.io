@@ -1570,7 +1570,8 @@
 
                                     <h5>Lab Procedure</h5>
                                     <p class="mb-4">In this lab, I want to perform grid localization for the smaple trajectory.
-                                        I started by downloading the lab10 notebook from <a href="https://github.com/CEI-lab/FastRobots-2023/raw/main/docs/lab10.ipynb.zip">here</a>.</p>                                   
+                                        I started by downloading the lab10 notebook from <a href="https://github.com/CEI-lab/FastRobots-2023/raw/main/docs/lab10.ipynb.zip">here</a>.
+                                    </p>                                   
                                     
                                     <p class="mb-4">
                                         Our state space is modeled as a finite 3D grid space, compoased of x, y, and θ.
@@ -1628,25 +1629,19 @@
                                     <script src="https://gist.github.com/jueunkwon/ce0af9c503cfe6be056b2a630adda237.js"></script><br>
 
                                     <h5>Results</h5>
-                                    <p class="mb-4"></p>
+                                    <p class="mb-4">Below is a video of my Bayes Filter working on a preplanned trajectory. The left graph is the trajectory plotter and the right graph is flatland.</p>
                                     <div class="embed-container">
                                         <iframe width="560" height="315" src="https://www.youtube.com/embed/DoOvPum5rtk" frameborder="0" allowfullscreen></iframe>
                                     </div>
 
-                                    <p class="mb-4">Below is the graph from the trajectory plotter. The red path is the odometry, the green path is the ground truth, and the blue path is the belief.</p>
+                                    <p class="mb-4">Below is the graph from the trajectory plotter. The white lines represent the map. 
+                                        The red path is the odometry, the green path is the ground truth, and the blue path is the belief.
+                                        My ground truth path and the belief path are near each other, signifying that my Bayes Filter worked.
+                                    </p>
                                     <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab10/trajectory_plotter.PNG" alt="...">                                    
                                     
                                     <p class="mb-4">Below is the logged update stat and the prediction stat, printed in Jupyter Notebook.</p>
-                                    <script src="https://gist.github.com/jueunkwon/66ac94579a32aeb9b1ffa7c9d05d36be.js"></script><br>
-
-
-                                    
-                                    <p class="mb-4"></p>
-                                    <p class="mb-4"></p>
-                                    <p class="mb-4"></p>
-                                    <p class="mb-4"></p>
-                                    <p class="mb-4"></p>
-                                    
+                                    <script src="https://gist.github.com/jueunkwon/66ac94579a32aeb9b1ffa7c9d05d36be.js"></script>                                    
                                     
                                     <div class="text-center">
                                         <button class="btn btn-primary" data-bs-dismiss="modal">
