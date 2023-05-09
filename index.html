@@ -161,7 +161,7 @@
                             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
                                 <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
                             </div>
-                            <img class="img-fluid" src="assets/img/coming_soon.png" alt="..." />
+                            <img class="img-fluid" src="assets/img/lab10/lab10.png" alt="..." />
                         </div>
                         <h5 class="text-center">Lab 10: Localization (Sim)</h5>
                     </div>
@@ -1563,16 +1563,70 @@
                                     </div>
 
                                     <h3 class="text-center">Goal</h3>
-                                    <p class="mb-4">The goal of this lab is for my car to drive forward, do a flip on a sticky matt, and return to where it came from, as fast as possible.</p>
+                                    <p class="mb-4">The goal of this lab is to do grid localization with the use of Bayes Filter</p>
 
                                     <h3 class="text-center">Lab Tasks</h3>
                                     <!--<p class="mb-4">the procedure of this lab</p>-->
                                     <h5>Pre-lab</h5>
-                                    <p class="mb-4">...</p>
+                                    <p class="mb-4">Our state space is modeled as a finite 3D grid space, compoased of x, y, and θ.
+                                        This means we won't be able to distinguish the robot's state if it is in the same grid cell, but this is good enough for our purposes and for computation time.
+                                        Resolution of the x, y, and θ cell is 0.3048m, 0.3048m, and 20 degrees, and the number of cells are 12 by 9 by 18.
+                                        Each grid cell is composed of the probabilty of the robot's presence in that cell. This probability is updated through the Bayes filter. 
+                                        Measurement noise and control data noise is modeled by Gaussian Distribution.
+                                    </p>
+
+                                    <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab10/bayes_filter.PNG" alt="...">
+                                    <p class="mb-4">Bayes filter has two main steps every iteration: prediction and update.
+                                        Prediction step uses the control input data from movement. Prediction step increases belief uncertainty.
+                                        Update step uses the obervation data from measurement. Update step reduces uncertainty.
+                                    </p>
 
                                     <h5>Lab Procedure</h5>
                                     <p class="mb-4">I downloaded the lab10 notebook from <a href="https://github.com/CEI-lab/FastRobots-2023/raw/main/docs/lab10.ipynb.zip">here</a>.</p>
                                     
+                                    <p class="mb-4">Perform Grid localization for the sample trajectory.
+                                        - You may modify the trajectory for better results.
+                                        - Attach a video of the best localization results (along the entire trajectory).</p>
+                                    
+                                    
+                                    <h5>compute_control</h5>
+                                    <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab10/odometry_model_parameters.PNG" alt="...">
+                                    <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab10/noise.PNG" alt="...">
+                                    <p class="mb-4"></p>
+                                    <script src="https://gist.github.com/jueunkwon/9f1c5192c3f85ca4bed737fc0eb309c5.js"></script>
+                                    
+                                    <h5>odom_motion_model</h5>
+                                    <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab10/odometry_prob.PNG" alt="...">
+                                    <p class="mb-4"></p>
+                                    <script src="https://gist.github.com/jueunkwon/57da23fbf4991a2a3276362cc2c22121.js"></script>
+                                    
+                                    <h5>prediction_step</h5>
+                                    <script src="https://gist.github.com/jueunkwon/25d3a75a235c008dc771a8dd8cd588b0.js"></script>
+
+                                    <h5>sensor_model</h5>
+                                    <script src="https://gist.github.com/jueunkwon/ad00719cd9e046b5006b74a3618d5a18.js"></script>
+
+
+                                    <h5>update_step</h5>
+                                    <script src="https://gist.github.com/jueunkwon/ce0af9c503cfe6be056b2a630adda237.js"></script>
+
+                                    <h5>Results</h5>
+                                    <div class="embed-container">
+                                        <iframe width="560" height="315" src="https://www.youtube.com/embed/DoOvPum5rtk" frameborder="0" allowfullscreen></iframe>
+                                    </div>
+
+
+                                    <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab10/trajectory_plotter.PNG" alt="...">                                    
+                                    <script src="https://gist.github.com/jueunkwon/66ac94579a32aeb9b1ffa7c9d05d36be.js"></script>
+
+
+                                    <p class="mb-4"></p>
+                                    <p class="mb-4"></p>
+                                    <p class="mb-4"></p>
+                                    <p class="mb-4"></p>
+                                    <p class="mb-4"></p>
+                                    <p class="mb-4"></p>
+                                    <p class="mb-4"></p>
                                     
                                     <div class="text-center">
                                         <button class="btn btn-primary" data-bs-dismiss="modal">
