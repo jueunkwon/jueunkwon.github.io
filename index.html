@@ -167,7 +167,7 @@
                     </div>
                     <!-- Portfolio Item 11-->
                     <div class="col-md-6 col-lg-4 mb-5">
-                        <div class="portfolio-item mx-auto" data-bs-toggle="modal" data-bs-target="#portfolioModal7">
+                        <div class="portfolio-item mx-auto" data-bs-toggle="modal" data-bs-target="#portfolioModal11">
                             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
                                 <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
                             </div>
@@ -1563,7 +1563,7 @@
                                     </div>
 
                                     <h3 class="text-center">Goal</h3>
-                                    <p class="mb-4">The goal of this lab is to do grid localization with Bayes Filter in the simulation</p>
+                                    <p class="mb-4">TThe goal of this lab is to do grid localization with Bayes Filter in the simulation.</p>
 
                                     <h3 class="text-center">Lab Tasks</h3>
                                     <!--<p class="mb-4">the procedure of this lab</p>-->
@@ -1646,6 +1646,72 @@
                                     <p class="mb-4">
                                         I referenced <a href="https://anyafp.github.io/ece4960/labs/lab11/">Anya's lab</a> in performing this lab. 
                                     </p>
+                                    
+                                    <div class="text-center">
+                                        <button class="btn btn-primary" data-bs-dismiss="modal">
+                                            <i class="fas fa-xmark fa-fw"></i>
+                                            Close Window
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Portfolio Modal 11-->
+        <div class="portfolio-modal modal fade" id="portfolioModal11" tabindex="-1" aria-labelledby="portfolioModal11" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header border-0"><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button></div>
+                    <div class="modal-body text-left pb-5">
+                        <div class="container">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-8">
+                                    <!-- Portfolio Modal - Title-->
+                                    <h2 class="text-center">LAB 11<h3 class="text-warning text-center">Localization on the Real Robot</h3></h2>
+                                    <!-- Icon Divider-->
+                                    <div class="divider-custom">
+                                        <div class="divider-custom-line"></div>
+                                        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                                        <div class="divider-custom-line"></div>
+                                    </div>
+
+                                    <h3 class="text-center">Goal</h3>
+                                    <p class="mb-4">The goal of this lab is to do grid localization with Bayes Filter on the real robot.</p>
+
+                                    <h3 class="text-center">Lab Tasks</h3>
+                                    <!--<p class="mb-4">the procedure of this lab</p>-->
+
+                                    <h5>Test Localization in Simulation</h5>
+                                    <p class="mb-4">
+                                        I ran the notebook lab11_sim.ipynb and below is the final plot of the trajectory plotter. 
+                                        The red path is the odometry, the green path is the ground truth, and the blue path is the belief.
+                                    </p>
+                                    <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab11/trajectory_plotter.PNG" alt="...">
+
+
+                                    <h5>Using a uniform prior on the pose, run (only) the update step using the sensor measurement data to localize your robot</h5>
+                                    <p class="mb-4">
+                                        1. Go through the notebook lab11_real.ipynb and implement the member function perform_observation_loop of class RealRobot
+                                        (re-use code from previous labs to implement this).
+
+                                        2. Place your robot in one of the four marked poses and run the update step of the Bayes filter once.
+                                        - How close is the localized pose w.r.t to the ground truth?
+                                        - Visualize your results
+                                        - Discuss your results
+
+                                        3. Repeat (2) for every marked position
+                                        - Does the robot localize better in certain poses? If so, why?
+
+                                    </p>
+
+                                    <p class="mb-4"><b>Bottom Right Corner (5,-3):</b></p>
+                                    <p class="mb-4"><b>Top Right Corner (5,3):</b></p>
+                                    <p class="mb-4"><b>Top Middle Corner (0,3):</b></p>
+                                    <p class="mb-4"><b>Bottom Left Corner (-3,-2):</b></p>
+
                                     
                                     <div class="text-center">
                                         <button class="btn btn-primary" data-bs-dismiss="modal">
