@@ -1563,7 +1563,7 @@
                                     </div>
 
                                     <h3 class="text-center">Goal</h3>
-                                    <p class="mb-4">TThe goal of this lab is to do grid localization with Bayes Filter in the simulation.</p>
+                                    <p class="mb-4">The goal of this lab is to do grid localization with Bayes Filter in the simulation.</p>
 
                                     <h3 class="text-center">Lab Tasks</h3>
                                     <!--<p class="mb-4">the procedure of this lab</p>-->
@@ -1683,115 +1683,62 @@
 
                                     <h3 class="text-center">Lab Tasks</h3>
                                     <!--<p class="mb-4">the procedure of this lab</p>-->
+                                    <p class="mb-4">I collaborated with TianTian Li on this Lab!</p>
 
                                     <h5>Test Localization in Simulation</h5>
-                                    <p class="mb-4">
-                                        I ran the notebook lab11_sim.ipynb and below is the final plot of the trajectory plotter. 
+                                    <p class="mb-4"> 
+                                        We ran our provided notebook lab11_sim.ipynb, which is an optimized Bayes filter implementation that works on the virtual robot.
+                                        Below is the final plot of the trajectory plotter. 
                                         The red path is the odometry, the green path is the ground truth, and the blue path is the belief.
+                                        It can be verified that the simulator gives similar results to Lab 10.
                                     </p>
                                     <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab11/trajectory_plotter.PNG" alt="...">
 
 
-                                    <h5>Using a uniform prior on the pose, run (only) the update step using the sensor measurement data to localize your robot</h5>
+                                    <h5>Test Localization on Real Robot</h5>
                                     <p class="mb-4">
-                                        1. Go through the notebook lab11_real.ipynb and implement the member function perform_observation_loop of class RealRobot
-                                        (re-use code from previous labs to implement this).
+                                        We went through the lab11_real.ipynb and implemented the perform_observation_loop(self, rot_vel=120) function.
+                                        Rest of the given code makes it possible for us to run the update step using the sensor measuement data to localize our real robot.
+                                        The given code used only the update step from a one full rotation since the rotation of the robot is so noisey that the prediction step doesn't really help.
+                                    </p>
 
-                                        2. Place your robot in one of the four marked poses and run the update step of the Bayes filter once.
-                                        - How close is the localized pose w.r.t to the ground truth?
-                                        - Visualize your results
-                                        - Discuss your results
+                                    <p class="mb-4">We used the asyncio.sleep() function for the first time in writing the perform_observation_loop(self, rot_vel=120) function.
+                                        We did this by adding the keyword async to the function definition, placing the keyword await infrot of asyncio.sleep(), placing the await keyword whenever calling the async coroutine perform_observation_loop(), and by placing the await keyword to the line loc.get_observation_data().
+                                        Below is our code snippet of our implementation of the perform_observation_loop(self, rot_vel=120) on Jupyter.</p>
+                                    <script src="https://gist.github.com/jueunkwon/112cb2d990b256f60ceb034f2c16e6ba.js"></script>
+                                    
+                                    <p class="mb-4">Below is our code snippet to do localization on the ardunio. The code is essentiially the same my my mapping_pid() function from my lab 9 except that this time around, I make my robot do a one full rotation instead of two full rotations.</p>
+                                    <script src="https://gist.github.com/jueunkwon/84c9405513e43a2881c6884790636e19.js"></script>
 
-                                        3. Repeat (2) for every marked position
-                                        - Does the robot localize better in certain poses? If so, why?
-
+                                    <p class="mb-4">Now that all the code is implemented, we placed out robot in the four marked poses and ran the updated step of the Bayes filter. 
+                                        The blue dot is the belief, and the green dot is the ground truth.
                                     </p>
 
                                     <p class="mb-4"><b>Bottom Right Corner (5, -3, 0 deg):</b></p>
                                     <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab11/br_map.PNG" alt="...">
                                     <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab11/br_loc.PNG" alt="...">
-                                    <p class="mb-4"></p>
 
                                     <p class="mb-4"><b>Top Right Corner (5, 3, 0 deg):</b></p>
                                     <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab11/tr_map.PNG" alt="...">
                                     <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab11/tr_loc.PNG" alt="...">
-                                    <p class="mb-4"></p>
 
                                     <p class="mb-4"><b>Top Middle Corner (0, 3, 0 deg):</b></p>
                                     <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab11/tm_map.PNG" alt="...">
                                     <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab11/tm_loc.PNG" alt="...">
-                                    <p class="mb-4"></p>
 
                                     <p class="mb-4"><b>Bottom Left Corner (-3, -2, 0 deg):</b></p>
                                     <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab11/bl_map.PNG" alt="...">
                                     <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab11/bl_loc.PNG" alt="...">
-                                    <p class="mb-4"></p>
-
                                     
-
-
-
-
-<p class="mb-4"><b>Bottom Right Corner (5,-3):</b></p>
-                                    <div class="embed-container">
-                                        <iframe width="560" height="315" src="https://www.youtube.com/embed/rlpIhDK-byM" frameborder="0" allowfullscreen></iframe>
-                                    </div>
-                                    <div class="text-center">
-                                        <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/m_br.PNG" alt="...">
-                                        <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/d_br.PNG" alt="...">
-                                        <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/av_br.PNG" alt="...">
-                                        <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/a_br.PNG" alt="...">
-                                        <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/p_br.PNG" alt="...">
-                                    </div>
-                                    
-                                    <p class="mb-4"><b>Top Right Corner (5,3):</b></p>
-                                    <div class="embed-container">
-                                        <iframe width="560" height="315" src="https://www.youtube.com/embed/EakpAbOnS0A" frameborder="0" allowfullscreen></iframe>
-                                    </div>
-                                    <div class="text-center">
-                                        <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/m_tr.PNG" alt="...">
-                                        <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/d_tr.PNG" alt="...">
-                                        <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/av_tr.PNG" alt="...">
-                                        <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/a_tr.PNG" alt="...">
-                                        <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/p_tr.PNG" alt="...">
-                                    </div>
-
-                                    <p class="mb-4"><b>Top Middle Corner (0,3):</b></p>
-                                    <div class="embed-container">
-                                        <iframe width="560" height="315" src="https://www.youtube.com/embed/-jbd8yVodtY" frameborder="0" allowfullscreen></iframe>
-                                    </div>
-                                    <div class="text-center">
-                                        <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/m_tm.PNG" alt="...">
-                                        <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/d_tm.PNG" alt="...">
-                                        <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/av_tm.PNG" alt="...">
-                                        <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/a_tm.PNG" alt="...">
-                                        <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/p_tm.PNG" alt="...">
-                                    </div>
-
-                                    <p class="mb-4"><b>Bottom Left Corner (-3,-2):</b></p>
-                                    <div class="embed-container">
-                                        <iframe width="560" height="315" src="https://www.youtube.com/embed/xlYLl1kUDlQ" frameborder="0" allowfullscreen></iframe>
-                                    </div>
-                                    <div class="text-center">
-                                        <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/m_bl.PNG" alt="...">
-                                        <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/d_bl.PNG" alt="...">
-                                        <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/av_bl.PNG" alt="...">
-                                        <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/a_bl.PNG" alt="...">
-                                        <img class="img-fluid rounded mb-5" width="350" src="assets/img/lab9/p_bl.PNG" alt="...">
-                                    </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
+                                    <p class="mb-4">
+                                        Our localization pose with respect to the ground truth was very close--either same (bottom two) or within one grid square off (top two).
+                                        I think the discrepancy comes from the fact that the robot turns a little off axis, like in a circle. Other possible reasons might be that we place the robot not exactly on top of the ground truth locations, uncertainties in the ToF readings, and the map being slightly crooked.
+                                    </p> 
+                                    <p class="mb-4">
+                                        I think the robot localizes better for the bottom two compared to the top two due to that fact that the bottom two map is less complicated and more forgiving than the top two.
+                                        Becuase the unique features like boxes are further from where we are localizing, I think the bottom localizations came our better.
+                                        However, I think the dominant discrepancy is from out robot turning a little off axis by a different amount every time and by luck, some localizations come out better than others.
+                                    </p>
 
                                     <div class="text-center">
                                         <button class="btn btn-primary" data-bs-dismiss="modal">
