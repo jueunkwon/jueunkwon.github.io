@@ -177,11 +177,11 @@
                     </div>
                     <!-- Portfolio Item 12-->
                     <div class="col-md-6 col-lg-4 mb-5">
-                        <div class="portfolio-item mx-auto" data-bs-toggle="modal" data-bs-target="#portfolioModal7">
+                        <div class="portfolio-item mx-auto" data-bs-toggle="modal" data-bs-target="#portfolioModal12">
                             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
                                 <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
                             </div>
-                            <img class="img-fluid" src="assets/img/coming_soon.png" alt="..." />
+                            <img class="img-fluid" src="assets/img/lab12/lab12.png" alt="..." />
                         </div>
                         <h5 class="text-center">Lab 12: Planning and Execution (Real)</h5>
                     </div>
@@ -1739,6 +1739,108 @@
                                         Becuase the unique features like boxes are further from where we are localizing, I think the bottom localizations came our better.
                                         However, I think the dominant discrepancy is from out robot turning a little off axis by a different amount every time and by luck, some localizations come out better than others.
                                     </p>
+
+                                    <div class="text-center">
+                                        <button class="btn btn-primary" data-bs-dismiss="modal">
+                                            <i class="fas fa-xmark fa-fw"></i>
+                                            Close Window
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Portfolio Modal 12-->
+        <div class="portfolio-modal modal fade" id="portfolioModal12" tabindex="-1" aria-labelledby="portfolioModal11" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header border-0"><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button></div>
+                    <div class="modal-body text-left pb-5">
+                        <div class="container">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-8">
+                                    <!-- Portfolio Modal - Title-->
+                                    <h2 class="text-center">LAB 12<h3 class="text-warning text-center">Path Planning and Execution</h2>
+                                    <!-- Icon Divider-->
+                                    <div class="divider-custom">
+                                        <div class="divider-custom-line"></div>
+                                        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                                        <div class="divider-custom-line"></div>
+                                    </div>
+
+                                    <h3 class="text-center">Goal</h3>
+                                    <p class="mb-4">The goal of this lab is to perform robot navigation through a set of waypoints in the map as quickly and accurately as possible..</p>
+
+                                    <h3 class="text-center">Lab Tasks</h3>
+                                    <!--<p class="mb-4">the procedure of this lab</p>-->
+                                    <p class="mb-4">I collaborated with TianTian Li and Raphael Fortuna on this Lab!</p>
+
+                                    <h5>Waypoints</h5>
+                                    <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab12/trajectory.png" alt="...">
+                                    <p class="mb-4"> 
+                                        Waypoints that we have to hit are listed below:
+                                    </p>
+                                    <p class="mb-4 text-center"> 
+                                        1. (-4, -3)    &lt--start <br>
+                                        2. (-2, -1)<br>
+                                        3. (1, -1)<br>
+                                        4. (2, -3)<br>
+                                        5. (5, -3)<br>
+                                        6. (5, -2)<br>
+                                        7. (5, 3)<br>
+                                        8. (0, 3)<br>
+                                        9. (0, 0)      &lt--end<br>
+                                    </p>
+                                    <p class="mb-4">
+                                        Since errors from the previous step propagte throughiut the navigation, the later points get harder to hit.
+                                        We will try out best to mitigate the error.
+                                    </p>
+
+                                    <h5>Navigation Strategy</h5>
+                                    <p class="mb-4"><b>Our Attempts:</b></p>
+                                    <p class="mb-4">
+                                        At first, we tried to use Bayes Filter and localize after getting to the each way point.
+                                        However, we kept running into a wrong and different number of sample points every time we ran the same code.
+                                        In addition, depending on the battery level, our localization would end at a different angle and would cause us trouble for the rest of the nagivation.
+                                        In order to address this issue, we tried to use the magnetometer to tell us the group truth angle so that we can correct for our heading angle.
+                                        To do this, we made our robot stop so that the motor's magnetic field would not interfere with that of the magnetometer and took the measurement.
+
+                                        robot path plan and drive around the map using PID, Kalman Filter, and global path planning.
+                                    </p>
+                                    <p class="mb-4"><b>Our Plan:</b></p>
+                                    <p class="mb-4">We decided to go with closed loop gobal path planning method.
+
+
+                                        At first, we tried to take the shortest path to the waypoints. 
+                                        However we found out that the ToF readings at an angle wasn't as accurate as we want it to be. 
+                                        So, we decided to create way points in the middle so that all of our robot rotations are about 90 degrees.
+                                    </p>
+
+
+                                    You can consider using graph search algorithms to plan an optimal path between way points, or skip it altogether and rely on local path planning and obstacle avoidance.
+
+
+                                    Feedback control: Again, use whatever control works best for your robot. Maybe it works fine open loop with timed controls. Alternatively, for straight line movement, you can consider doing position control with respect to the change in ToF values. For rotations, consider doing orientation control based on the gyroscope readings.
+
+
+
+
+
+
+
+                                    <h5>Videos of Our Navigation</h5>
+                                    <p class="mb-4"><b>Our best run:</b></p>
+                                    <div class="embed-container">
+                                        <iframe width="560" height="315" src="https://www.youtube.com/embed/OqgTRo9_394" frameborder="0" allowfullscreen></iframe>
+                                    </div>
+
+                                    <p class="mb-4"><b>Our other runs:</b></p>
+                                    <div class="embed-container">
+                                        <iframe width="560" height="315" src="https://www.youtube.com/embed/2FOwTNLnsZs" frameborder="0" allowfullscreen></iframe>
+                                    </div>
 
                                     <div class="text-center">
                                         <button class="btn btn-primary" data-bs-dismiss="modal">
