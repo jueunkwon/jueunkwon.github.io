@@ -1772,7 +1772,7 @@
                                     </div>
 
                                     <h3 class="text-center">Goal</h3>
-                                    <p class="mb-4">The goal of this lab is to perform robot navigation through a set of waypoints in the map as quickly and accurately as possible..</p>
+                                    <p class="mb-4">The goal of this lab is to perform robot navigation through a set of waypoints in the map as quickly and accurately as possible.</p>
 
                                     <h3 class="text-center">Lab Tasks</h3>
                                     <!--<p class="mb-4">the procedure of this lab</p>-->
@@ -1795,7 +1795,7 @@
                                         9. (0, 0)      &lt--end<br>
                                     </p>
                                     <p class="mb-4">
-                                        Since errors from the previous step propagte throughiut the navigation, the later points get harder to hit.
+                                        Since errors from the previous step propagte throughout the navigation, the later points get harder to hit.
                                         We will try out best to mitigate the error.
                                     </p>
 
@@ -1807,20 +1807,45 @@
                                         In addition, depending on the battery level, our localization would end at a different angle and would cause us trouble for the rest of the nagivation.
                                         In order to address this issue, we tried to use the magnetometer to tell us the group truth angle so that we can correct for our heading angle.
                                         To do this, we made our robot stop so that the motor's magnetic field would not interfere with that of the magnetometer and took the measurement.
-
-                                        robot path plan and drive around the map using PID, Kalman Filter, and global path planning.
+                                        Due to our sample number problem, we decided to use another method.
                                     </p>
                                     <p class="mb-4"><b>Our Plan:</b></p>
                                     <p class="mb-4">We decided to go with closed loop gobal path planning method.
+                                        Our computer would send commands for the robot to perform and the robot will not send back any data since we are not doing localization.
+                                        When driving forward, we use Kalman Filter and PID. 
+                                        We use Kalman Filter to go a certain distance from where we are (e.g. we can tell it to go 1 ft).
+                                        We use PID to go a certain distance from a wall (e.g. we can tell it to go 1 ft away from the wall).
+                                        When turning, we use PID to get to get to a certain angle either through turning right or tunring left. 
+                                        We use this feedback system so that the robot would more accurately drive or turn a certain distance.
+                                        In terms of work distribution, I integrated the PID and Kalman Filter to move forward with the use of ToF, Tiantian integrated the PID turning for the IMU, and Raphael integrated the global path planning code for controlling the robot. 
+                                    </p>
 
-
+                                    <h5>Navigation</h5>
+                                    <p class="mb-4">
                                         At first, we tried to take the shortest path to the waypoints. 
                                         However we found out that the ToF readings at an angle wasn't as accurate as we want it to be. 
                                         So, we decided to create way points in the middle so that all of our robot rotations are about 90 degrees.
+                                        Below is our new path shown in red.
                                     </p>
+                                    <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab12/our_path.png" alt="...">
 
+                                    <p class="mb-4"><b>PID on Forward (distance away from wall):</b></p>
+                                    <p class="mb-4">Below is our code snippet to do proportional controller to get to a certain distance from the wall.</p>
+                                    <script src="https://gist.github.com/jueunkwon/bd382dd75a45c59a58b5eb341b36b00e.js"></script>
+                                    <p class="mb-4"><b>Kalman Filter on Forward (distance from where it is at):</b></p>
+                                    <p class="mb-4">Below is our code snippet to do kalman filter to go a certain distance from it's location.</p>
+                                    <script src="https://gist.github.com/jueunkwon/d0c9ff69911d7196e5bddfcd2781e077.js"></script>
 
+                                    <p class="mb-4"><b>PID on Turning:</b></p>
+                                    <p class="mb-4">Below is our code snippet to do proportional controller on turn right and turn left.</p>
+                                    <script src="https://gist.github.com/jueunkwon/e91051a3ce05250c1e4bf711a71b76b5.js"></script>
+
+                                    <p class="mb-4"><b>Path Planner:</b></p>
+                                    <p class="mb-4">Below is our code snippet to do proportional controller on turn right and turn left.</p>
                                     
+
+
+
 
 
 
