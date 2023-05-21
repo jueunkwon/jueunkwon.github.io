@@ -1796,14 +1796,14 @@
                                     </p>
                                     <p class="mb-4">
                                         Since errors from the previous step propagte throughout the navigation, the later points get harder to hit.
-                                        We will try out best to mitigate the error.
+                                        We will tried out best to mitigate the error.
                                     </p>
 
                                     <h5>Navigation Strategy</h5>
                                     <p class="mb-4"><b>Our Attempts:</b></p>
                                     <p class="mb-4">
                                         At first, we tried to use Bayes Filter and localize after getting to the each way point.
-                                        However, we kept running into a wrong and different number of sample points every time we ran the same code.
+                                        However, we kept running into a problem where we get different number of sample points every time we ran the same code.
                                         In addition, depending on the battery level, our localization would end at a different angle and would cause us trouble for the rest of the nagivation.
                                         In order to address this issue, we tried to use the magnetometer to tell us the group truth angle so that we can correct for our heading angle.
                                         To do this, we made our robot stop so that the motor's magnetic field would not interfere with that of the magnetometer and took the measurement.
@@ -1829,25 +1829,59 @@
                                     </p>
                                     <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab12/our_path.png" alt="...">
 
-                                    <p class="mb-4"><b>PID on Forward (distance away from wall):</b></p>
-                                    <p class="mb-4">Below is our code snippet to do proportional controller to get to a certain distance from the wall on arduino.</p>
-                                    <script src="https://gist.github.com/jueunkwon/bd382dd75a45c59a58b5eb341b36b00e.js"></script>
-
                                     <p class="mb-4"><b>Kalman Filter on Forward (distance from where it is at):</b></p>
-                                    <p class="mb-4">Below is our code snippet to do Kalman Filter to go a certain distance from it's location on ardunio.</p>
+                                    <p class="mb-4">Below is our code snippet to do Kalman Filter to go a certain distance from it's location on ardunio. 
+                                        We already had a Kalman Filter implemented to go to a certain distance away from the wall in lab 7. So, we altered this code so that instead of going certain distance away from the wall, it goes a certain distance away from where it started.
+                                        Kalman Filter along with ToF collecting 10 data points in a second allowed us to react quickly to the changes. We used a Kp value of 0.4.
+                                    </p>
                                     <script src="https://gist.github.com/jueunkwon/d0c9ff69911d7196e5bddfcd2781e077.js"></script>
 
+                                    <p class="mb-4"><b>PID on Forward (distance away from wall):</b></p>
+                                    <p class="mb-4">Below is our code snippet to do proportional controller to get to a certain distance from the wall on arduino. 
+                                        We used PID to get to a distance away from the wall instead of doing Kalman Filter to get to a distance away from the wall because it was already implmented from lab 6 and already worked great.
+                                        Although the results will be barely any different, we could have implemented Kalman Filter to get to a certain distane away from the wall by copy-pasting it from our lab 7.
+                                        ToF collected 10 data points a second, which was quick enough for our use. We used a Kp value of 0.4.
+                                    </p>
+                                    <script src="https://gist.github.com/jueunkwon/bd382dd75a45c59a58b5eb341b36b00e.js"></script>
+
                                     <p class="mb-4"><b>PID on Turning:</b></p>
-                                    <p class="mb-4">Below is our code snippet to do proportional controller on turn right and turn left on arduino.</p>
+                                    <p class="mb-4">Below is our code snippet to do proportional controller on turn right and turn left on arduino.
+                                        We accounted for the deadband in the motors by limiting the motor input to between 100 and 200.
+                                        The IMU collected 100 yaw data points per seconds. We used a Kp value of 1.
+                                        We created seperate turn left and turn right commands to minimize the about of angle we turn to decrease gyroscope drift and error.
+                                    </p>
                                     <script src="https://gist.github.com/jueunkwon/e91051a3ce05250c1e4bf711a71b76b5.js"></script>
 
                                     <p class="mb-4"><b>Path Planner:</b></p>
-                                    <p class="mb-4">Below is our code snippet to do path planning on Jupyter.</p>
-                                    <script src="https://gist.github.com/jueunkwon/92b179772937aabbae9010acfc48c9f2.js"></script>
+                                    <p class="mb-4">The path planner was made to use the turn-go-turn procedure from the odometry model.
+                                        We input our goal (x, y, yaw) points to the planner and the planner outputs that command to the robot.
+                                        The command can be any of the four that we discussed above: PID on Forward, Kalman Filter on Forward, PID Turn Left, or PID Turn Right.
+                                        We choose turn right or turn left depending on which one takes angle to do so since gyroscope drift becomes more prominent as angle increases.
+                                        After each command is sent, the planner waits 5 or 10 seconds before sending the next command, depending on how long it takes to do that command. 
+                                    </p>
+                                    <p class="mb-4">As mentioned before, we added extra way points to avoid turn a non perpendicular turn.
+                                        The path planer takes about 1.5 miliseonds to output the necessary commands to navigate through the map.
+                                        The output was printed on Jupyter to be verified. Below is the code to do path planning.
+                                    </p>
+                                    <script src="https://gist.github.com/jueunkwon/b97244e53ba177bf9bfdcbae5a4f682d.js"></script>
 
-                                    <script src="https://gist.github.com/jueunkwon/2fd701c0986268e5a992d4652a41e203.js"></script>
+                                    <p class="mb-4"><b>Manual Adjustment:</b></p>
+                                    <p class="mb-4">
+                                        Based on our actual measurements of the map, as shown below, and from testing, we manually tuned our navigation code output from the path planner.
+                                    </p>
+                                    <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab12/measurements.png" alt="...">
+                                    <p class="mb-4">
+                                        The right column below is our navigation code generated from the path planner.
+                                        The left column below is our final code for nagivation that we ran.
+                                    </p>
+                                    <img class="img-fluid rounded mb-5" width="560" height="315" src="assets/img/lab12/maual_adjustment.PNG" alt="...">
 
                                     <h5>Videos of Our Navigation</h5>
+                                    <p class="mb-4">As can be shown in the video, we were able to drive through or close to all the waypoints.
+                                        As errors accumulated throughout the steps, it became harder to hit the later waypoints, espcially the last one.
+                                        However, we tried our best in as discussed previously to make our robot nagivate to all the way points accurately and quickly as possible.
+                                    </p>
+
                                     <p class="mb-4"><b>Our best run:</b></p>
                                     <div class="embed-container">
                                         <iframe width="560" height="315" src="https://www.youtube.com/embed/OqgTRo9_394" frameborder="0" allowfullscreen></iframe>
